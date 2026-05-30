@@ -5,14 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Revalis — Le surplus devient solidarité</title>
 <meta name="description" content="Revalis connecte les supermarchés et les associations pour transformer les invendus alimentaires en dons utiles. Simple, rapide, tracé.">
-
-<!-- Favicon SVG inline : logo Revalis + point vert -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230e0e0e'/><text x='5' y='23' font-family='Georgia,serif' font-size='18' font-weight='900' fill='white'>r.</text><circle cx='24' cy='20' r='3' fill='%231a4a2e'/></svg>">
-
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-family='Georgia,serif' font-size='26' font-weight='900' fill='%230e0e0e'>r</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -33,42 +29,40 @@
   --red:#c0392b;
   --red-light:#fdf1f0;
   --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:0 4px 16px rgba(0,0,0,0.06),0 2px 6px rgba(0,0,0,0.04);
-  --shadow-lg:0 16px 48px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.07),0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg:0 16px 48px rgba(0,0,0,0.09),0 4px 16px rgba(0,0,0,0.05);
 }
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;line-height:1.6;}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 56px;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color 0.3s;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 56px;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.94);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color 0.3s;}
 nav.scrolled{border-bottom-color:var(--border);}
 .logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-0.02em;}
-.logo-dot{color:var(--forest);}
-.nav-center{display:flex;gap:32px;list-style:none;}
-.nav-center a{font-size:14px;color:var(--muted);text-decoration:none;font-weight:400;transition:color 0.2s;}
-.nav-center a:hover{color:var(--ink);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:14px;color:var(--muted);text-decoration:none;font-weight:400;transition:color 0.2s;}
+.nav-links a:hover{color:var(--ink);}
 .nav-right{display:flex;align-items:center;gap:10px;}
 .btn-ghost{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);background:transparent;border:1.5px solid var(--border2);border-radius:8px;padding:8px 16px;cursor:pointer;text-decoration:none;transition:all 0.2s;}
 .btn-ghost:hover{border-color:var(--ink);background:var(--ink);color:white;}
-.btn-forest{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:white;background:var(--forest);border:none;border-radius:8px;padding:9px 18px;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
-.btn-forest:hover{background:var(--forest2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,74,46,0.25);}
+.btn-forest-sm{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:white;background:var(--forest);border:none;border-radius:8px;padding:9px 18px;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+.btn-forest-sm:hover{background:var(--forest2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,74,46,0.25);}
 
-/* ── HERO ── */
+/* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 56px 80px;background:var(--white);position:relative;text-align:center;overflow:hidden;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(26,74,46,0.04) 0%,transparent 70%);pointer-events:none;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--forest-light);border:1px solid rgba(26,74,46,0.15);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--forest);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:36px;opacity:0;animation:riseUp 0.7s ease 0.1s forwards;}
-.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--forest-light);border:1px solid rgba(26,74,46,0.15);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--forest);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:36px;opacity:0;animation:riseUp 0.7s ease 0.1s forwards;}
+.eyebrow-flag{font-size:14px;}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:800;line-height:1.0;letter-spacing:-0.03em;color:var(--ink);max-width:860px;margin-bottom:28px;opacity:0;animation:riseUp 0.8s ease 0.2s forwards;}
 .hero-title .green{color:var(--forest);}
 .hero-title .italic{font-style:italic;font-weight:700;color:var(--muted);}
 .hero-sub{font-size:18px;color:var(--muted);max-width:560px;line-height:1.7;margin-bottom:48px;font-weight:300;opacity:0;animation:riseUp 0.8s ease 0.35s forwards;}
 .hero-sub strong{color:var(--ink);font-weight:500;}
 .hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:72px;opacity:0;animation:riseUp 0.8s ease 0.5s forwards;}
-.btn-hero-primary{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:white;background:var(--forest);border:none;border-radius:10px;padding:15px 32px;cursor:pointer;text-decoration:none;transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;}
-.btn-hero-primary:hover{background:var(--forest2);transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,74,46,0.3);}
-.btn-hero-secondary{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--ink);background:transparent;border:1.5px solid var(--border2);border-radius:10px;padding:15px 32px;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
-.btn-hero-secondary:hover{border-color:var(--ink);}
+.btn-hero-store{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:white;background:var(--forest);border:none;border-radius:10px;padding:15px 32px;cursor:pointer;text-decoration:none;transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;}
+.btn-hero-store:hover{background:var(--forest2);transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,74,46,0.3);}
+.btn-hero-assoc{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--ink);background:transparent;border:1.5px solid var(--border2);border-radius:10px;padding:15px 32px;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-hero-assoc:hover{border-color:var(--ink);}
 .hero-proof{display:flex;align-items:center;justify-content:center;gap:40px;opacity:0;animation:riseUp 0.8s ease 0.65s forwards;}
 .proof-item{text-align:center;}
 .proof-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--ink);letter-spacing:-0.03em;line-height:1;}
@@ -77,19 +71,19 @@ nav.scrolled{border-bottom-color:var(--border);}
 .proof-sep{width:1px;height:40px;background:var(--border2);}
 @keyframes riseUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── LOGOS ── */
+/* LOGOS */
 .logos-band{background:var(--off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 56px;display:flex;align-items:center;gap:16px;}
 .logos-label{font-size:12px;color:var(--sub);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
-.logos-sep{width:1px;height:24px;background:var(--border2);flex-shrink:0;}
+.logos-sep-line{width:1px;height:24px;background:var(--border2);flex-shrink:0;}
 .logos-scroll{flex:1;overflow:hidden;position:relative;}
 .logos-scroll::before,.logos-scroll::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:10;}
 .logos-scroll::before{left:0;background:linear-gradient(90deg,var(--off),transparent);}
 .logos-scroll::after{right:0;background:linear-gradient(-90deg,var(--off),transparent);}
-.logos-track{display:flex;gap:48px;animation:slide 24s linear infinite;width:max-content;}
-.logo-item{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;color:var(--border2);letter-spacing:0.02em;white-space:nowrap;}
+.logos-track{display:flex;gap:48px;animation:slide 28s linear infinite;width:max-content;}
+.logo-item{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--border2);letter-spacing:0.02em;white-space:nowrap;}
 @keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-/* ── SECTIONS ── */
+/* SECTIONS */
 .section{padding:120px 56px;}
 .section-inner{max-width:1200px;margin:0 auto;}
 .section-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);margin-bottom:20px;}
@@ -98,27 +92,21 @@ nav.scrolled{border-bottom-color:var(--border);}
 .section-title .italic{font-style:italic;color:var(--forest);}
 .section-sub{font-size:17px;color:var(--muted);line-height:1.7;max-width:520px;font-weight:300;}
 
-/* ── PROBLEM ── */
+/* PROBLEM — redesigned for balance */
 .problem-section{background:var(--off);}
-.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.problem-visual{display:flex;flex-direction:column;gap:16px;}
-.stat-card-big{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
-.stat-card-big::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),rgba(192,57,43,0.2));}
-.stat-pre{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--sub);margin-bottom:12px;}
-.stat-big-num{font-family:'Playfair Display',serif;font-size:68px;font-weight:800;color:var(--red);letter-spacing:-0.04em;line-height:1;margin-bottom:6px;}
-.stat-big-sub{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:24px;}
-.stat-progress{height:6px;background:var(--off2);border-radius:3px;overflow:hidden;margin-bottom:8px;}
-.stat-progress-fill{height:100%;background:linear-gradient(90deg,var(--red),rgba(192,57,43,0.3));border-radius:3px;width:0%;transition:width 1.5s ease 0.5s;}
-.stat-progress-fill.animate{width:30%;}
-.stat-progress-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);}
+.problem-top{text-align:center;margin-bottom:64px;}
+.problem-top .section-tag{justify-content:center;}
+.problem-top .section-title{max-width:600px;margin:0 auto 16px;}
+.problem-top .section-sub{max-width:560px;margin:0 auto;}
+.problem-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);border-radius:20px;overflow:hidden;}
+.prob-card{background:white;padding:36px 32px;}
+.prob-card:hover{background:var(--off);}
+.prob-icon{width:40px;height:40px;background:var(--red-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.prob-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;margin-bottom:10px;line-height:1.2;}
+.prob-desc{font-size:14px;color:var(--muted);line-height:1.65;}
+.prob-stat{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:var(--red-light);border:1px solid rgba(192,57,43,0.12);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--red);}
 
-.pain-cards{display:flex;flex-direction:column;gap:10px;}
-.pain-card{background:white;border:1px solid var(--border);border-radius:14px;padding:16px 18px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow-sm);}
-.pain-icon{width:36px;height:36px;background:var(--red-light);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.pain-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px;}
-.pain-desc{font-size:13px;color:var(--muted);line-height:1.5;}
-
-/* ── DUAL PERSONAS ── */
+/* DUAL PERSONAS */
 .dual-section{background:white;}
 .dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:64px;border-radius:24px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);}
 .dual-card{padding:48px;position:relative;}
@@ -136,13 +124,13 @@ nav.scrolled{border-bottom-color:var(--border);}
 .for-assoc .dual-role{color:var(--sub);}
 .dual-needs{display:flex;flex-direction:column;gap:14px;}
 .dual-need{display:flex;align-items:flex-start;gap:12px;font-size:14px;line-height:1.55;}
-.for-store .dual-need{color:rgba(255,255,255,0.8);}
+.for-store .dual-need{color:rgba(255,255,255,0.82);}
 .for-assoc .dual-need{color:var(--muted);}
 .need-ico{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .for-store .need-ico{background:rgba(255,255,255,0.15);}
 .for-assoc .need-ico{background:var(--forest-mid);}
 
-/* ── HOW ── */
+/* HOW */
 .how-section{background:var(--off);}
 .steps-container{margin-top:64px;}
 .step-row{display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;padding:40px 0;border-top:1px solid var(--border);}
@@ -152,37 +140,40 @@ nav.scrolled{border-bottom-color:var(--border);}
 .step-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;margin-bottom:10px;line-height:1.15;}
 .step-desc{font-size:15px;color:var(--muted);line-height:1.7;font-weight:300;}
 .step-chip{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:var(--forest-light);border:1px solid rgba(26,74,46,0.15);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--forest);}
-.step-visual{background:white;border:1px solid var(--border);border-radius:16px;padding:24px;min-height:120px;box-shadow:var(--shadow-sm);}
+.step-visual{background:white;border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow-sm);}
 
-/* ── APP PREVIEW ── */
+/* APP PREVIEW */
 .app-section{background:white;}
 .app-header{text-align:center;margin-bottom:72px;}
-.phones-row{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:nowrap;}
-.phn{width:210px;background:white;border-radius:36px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);flex-shrink:0;}
+.phones-row{display:flex;align-items:center;justify-content:center;gap:24px;}
+.phn{width:210px;border-radius:36px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);flex-shrink:0;}
 .phn.main{width:224px;box-shadow:0 24px 56px rgba(0,0,0,0.1),0 8px 24px rgba(0,0,0,0.06);}
 .phn-inner{padding:20px 14px 18px;}
 .phn-dark{background:#0a0a12;}
-.phn-dark-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.phn-light{background:#f7f8fa;}
+
+/* dark phone */
+.phn-dark-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
 .phn-brand-w{font-family:'Playfair Display',serif;font-size:13px;font-weight:800;color:white;letter-spacing:-0.02em;}
 .phn-active{display:flex;align-items:center;gap:4px;background:rgba(26,74,46,0.3);border:0.5px solid rgba(26,74,46,0.5);border-radius:20px;padding:3px 8px;}
-.phn-active-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;}
+.phn-active-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.4;}}
 .phn-active-txt{font-size:8px;color:#4ade80;font-weight:600;}
 .phn-impact-box{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px;margin-bottom:10px;}
 .phn-impact-lbl{font-size:7px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:8px;}
 .phn-impact-row{display:flex;gap:20px;}
-.phn-imp-n{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:white;letter-spacing:-0.03em;line-height:1;}
+.phn-imp-n{font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:white;letter-spacing:-0.03em;line-height:1;}
 .phn-imp-l{font-size:7px;color:rgba(255,255,255,0.3);margin-top:3px;}
 .phn-list-lbl{font-size:7px;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:6px;}
 .phn-lot{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.06);border-radius:7px;padding:8px 9px;margin-bottom:5px;}
 .phn-lot-n{font-size:9px;font-weight:600;color:rgba(255,255,255,0.8);}
-.phn-lot-w{font-size:7px;color:rgba(255,255,255,0.3);margin-top:2px;}
+.phn-lot-w{font-size:7px;color:rgba(255,255,255,0.3);margin-top:1px;}
 .phn-badge{font-size:7px;font-weight:700;padding:2px 6px;border-radius:4px;}
 .bg{background:rgba(74,222,128,0.12);color:#4ade80;}
 .by{background:rgba(251,191,36,0.12);color:#fbbf24;}
-.br{background:rgba(239,68,68,0.1);color:#f87171;}
 .phn-cta-w{background:white;border-radius:8px;padding:10px;text-align:center;font-family:'Playfair Display',serif;font-size:9px;font-weight:700;color:#0a0a12;margin-top:10px;}
 
-/* phone form */
+/* form phone */
 .phn-form-lbl{font-size:7px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:4px;}
 .phn-input{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 10px;font-size:9px;color:rgba(255,255,255,0.5);margin-bottom:8px;}
 .phn-input.active{border-color:rgba(26,74,46,0.6);color:rgba(255,255,255,0.85);}
@@ -190,11 +181,9 @@ nav.scrolled{border-bottom-color:var(--border);}
 .phn-note{background:rgba(26,74,46,0.1);border:0.5px solid rgba(26,74,46,0.2);border-radius:7px;padding:8px 9px;font-size:7px;color:rgba(74,222,128,0.7);line-height:1.5;margin-bottom:8px;}
 .phn-cta-g{background:var(--forest);border-radius:8px;padding:10px;text-align:center;font-family:'Playfair Display',serif;font-size:9px;font-weight:700;color:white;}
 
-/* phone light */
-.phn-light{background:#f7f8fa;}
+/* light phone */
 .phn-light-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .phn-brand-d{font-family:'Playfair Display',serif;font-size:13px;font-weight:800;color:#0e0e0e;letter-spacing:-0.02em;}
-.phn-brand-d .dot{color:var(--forest);}
 .phn-avatar{width:24px;height:24px;border-radius:50%;background:var(--forest-light);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:var(--forest);}
 .phn-alert-box{background:rgba(192,57,43,0.06);border:0.5px solid rgba(192,57,43,0.15);border-radius:9px;padding:9px 10px;margin-bottom:9px;}
 .phn-alert-t{font-size:9px;font-weight:700;color:#c0392b;margin-bottom:2px;}
@@ -211,45 +200,45 @@ nav.scrolled{border-bottom-color:var(--border);}
 .phn-s-u{font-size:8px;color:rgba(13,27,46,0.4);font-weight:400;}
 .phn-cta-d{background:#0e0e0e;border-radius:8px;padding:10px;text-align:center;font-family:'Playfair Display',serif;font-size:9px;font-weight:700;color:white;margin-top:4px;}
 
-/* ── QR VISUAL step 3 ── */
-.qr-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:28px;}
-.qr-frame{width:110px;height:110px;background:var(--off);border:1px solid var(--border2);border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative;}
-.qr-corner{position:absolute;width:18px;height:18px;border-color:var(--ink);border-style:solid;border-width:0;}
-.qr-corner.tl{top:10px;left:10px;border-top-width:2.5px;border-left-width:2.5px;border-radius:3px 0 0 0;}
-.qr-corner.tr{top:10px;right:10px;border-top-width:2.5px;border-right-width:2.5px;border-radius:0 3px 0 0;}
-.qr-corner.bl{bottom:10px;left:10px;border-bottom-width:2.5px;border-left-width:2.5px;border-radius:0 0 0 3px;}
-.qr-corner.br{bottom:10px;right:10px;border-bottom-width:2.5px;border-right-width:2.5px;border-radius:0 0 3px 0;}
-.qr-inner{display:grid;grid-template-columns:repeat(5,8px);grid-template-rows:repeat(5,8px);gap:2px;}
-.qr-cell{border-radius:1px;}
-.qr-b{background:var(--ink);}
+/* QR visual */
+.qr-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;}
+.qr-frame{width:100px;height:100px;background:var(--off);border:1px solid var(--border2);border-radius:14px;display:flex;align-items:center;justify-content:center;position:relative;}
+.qr-corner{position:absolute;width:16px;height:16px;border-color:var(--ink);border-style:solid;border-width:0;}
+.qr-corner.tl{top:9px;left:9px;border-top-width:2px;border-left-width:2px;border-radius:2px 0 0 0;}
+.qr-corner.tr{top:9px;right:9px;border-top-width:2px;border-right-width:2px;border-radius:0 2px 0 0;}
+.qr-corner.bl{bottom:9px;left:9px;border-bottom-width:2px;border-left-width:2px;border-radius:0 0 0 2px;}
+.qr-corner.br{bottom:9px;right:9px;border-bottom-width:2px;border-right-width:2px;border-radius:0 0 2px 0;}
+.qr-inner{display:grid;grid-template-columns:repeat(5,7px);grid-template-rows:repeat(5,7px);gap:2px;}
+.qr-b{background:var(--ink);border-radius:1px;}
 .qr-w{background:transparent;}
-.qr-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-align:center;line-height:1.5;}
 .qr-chip{display:inline-flex;align-items:center;gap:6px;background:var(--forest-light);border:1px solid rgba(26,74,46,0.15);border-radius:6px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--forest);}
+.qr-lbl{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-align:center;line-height:1.5;}
 
-/* ── LAW SECTION ── */
-.law-section{background:var(--forest);position:relative;overflow:hidden;}
-.law-section::before{content:'';position:absolute;top:-50%;right:-10%;width:600px;height:600px;border-radius:50%;background:rgba(255,255,255,0.03);pointer-events:none;}
-.law-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.law-left .section-tag{color:rgba(255,255,255,0.5);}
-.law-left .section-tag::before{background:rgba(255,255,255,0.3);}
-.law-left .section-title{color:white;}
-.law-left .section-sub{color:rgba(255,255,255,0.55);}
-.law-cards{display:flex;flex-direction:column;gap:16px;}
-.law-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;}
-.law-card-title{font-size:15px;font-weight:600;color:white;margin-bottom:8px;display:flex;align-items:center;gap:10px;}
-.law-card-num{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.06);border-radius:4px;padding:2px 8px;}
-.law-card-desc{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;}
-.law-highlight{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:24px;}
-.law-highlight-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:800;color:white;letter-spacing:-0.04em;line-height:1;margin-bottom:6px;}
-.law-highlight-num em{color:rgba(255,255,255,0.4);font-style:normal;font-size:24px;}
-.law-highlight-desc{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;}
+/* LAW — redesigned for coherence */
+.law-section{background:var(--forest);padding:120px 56px;}
+.law-inner{max-width:1200px;margin:0 auto;}
+.law-header{text-align:center;margin-bottom:64px;}
+.law-header .section-tag{justify-content:center;color:rgba(255,255,255,0.5);}
+.law-header .section-tag::before{background:rgba(255,255,255,0.3);}
+.law-header .section-title{color:white;margin:0 auto 16px;}
+.law-header .section-sub{color:rgba(255,255,255,0.55);margin:0 auto;max-width:560px;}
+.law-cards-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;}
+.law-card{background:rgba(255,255,255,0.06);padding:40px 36px;position:relative;transition:background 0.3s;}
+.law-card:hover{background:rgba(255,255,255,0.09);}
+.law-card-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:20px;}
+.law-card-num-big{font-family:'Playfair Display',serif;font-size:56px;font-weight:800;color:white;letter-spacing:-0.04em;line-height:1;margin-bottom:8px;}
+.law-card-num-big em{font-size:28px;font-weight:400;font-style:normal;color:rgba(255,255,255,0.5);}
+.law-card-title{font-size:17px;font-weight:600;color:white;margin-bottom:10px;letter-spacing:-0.01em;}
+.law-card-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65;}
+.law-ref{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.5);font-family:'DM Mono',monospace;}
 
-/* ── CONTACT ── */
+/* CONTACT — enriched */
 .contact-section{background:var(--off);}
 .contact-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact-left{}
 .contact-form{background:white;border:1px solid var(--border);border-radius:24px;padding:40px;box-shadow:var(--shadow-md);}
 .form-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.03em;margin-bottom:8px;}
-.form-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6;}
+.form-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6;}
 .form-tabs{display:flex;gap:4px;background:var(--off2);border-radius:10px;padding:4px;margin-bottom:24px;}
 .form-tab{flex:1;padding:9px;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--muted);}
 .form-tab.active{background:white;color:var(--ink);box-shadow:var(--shadow-sm);}
@@ -263,20 +252,17 @@ nav.scrolled{border-bottom-color:var(--border);}
 .btn-submit:hover{background:var(--forest2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,74,46,0.25);}
 .form-note{font-size:12px;color:var(--sub);text-align:center;margin-top:12px;}
 
-/* ── FINAL CTA ── */
-.final-cta{background:var(--ink);padding:140px 56px;text-align:center;position:relative;overflow:hidden;}
-.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(26,74,46,0.3) 0%,transparent 70%);pointer-events:none;}
-.final-title{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,72px);font-weight:800;color:white;letter-spacing:-0.04em;line-height:1.05;margin-bottom:20px;position:relative;}
-.final-title .green{color:#4ade80;}
-.final-title .italic{font-style:italic;color:rgba(255,255,255,0.35);}
-.final-sub{font-size:17px;color:rgba(255,255,255,0.4);max-width:480px;margin:0 auto 48px;line-height:1.7;font-weight:300;position:relative;}
-.btn-final{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:var(--ink);background:white;border:none;border-radius:12px;padding:16px 36px;cursor:pointer;text-decoration:none;transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;position:relative;}
-.btn-final:hover{background:rgba(255,255,255,0.9);transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,0.3);}
+/* contact left enriched */
+.contact-info-cards{display:flex;flex-direction:column;gap:16px;margin-top:40px;}
+.contact-info-card{background:white;border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow-sm);}
+.cic-icon{width:40px;height:40px;background:var(--forest-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.cic-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.cic-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+.cic-value{font-size:14px;font-weight:500;color:var(--forest);margin-top:6px;}
 
-/* ── FOOTER ── */
+/* FOOTER */
 footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;border-top:1px solid rgba(255,255,255,0.06);}
 .footer-logo-txt{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:white;letter-spacing:-0.03em;margin-bottom:8px;}
-.footer-logo-dot{color:var(--forest3);}
 .footer-tagline{font-size:13px;color:rgba(255,255,255,0.3);line-height:1.6;max-width:240px;}
 .footer-col-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:16px;}
 .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
@@ -285,29 +271,35 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
 .footer-bottom{grid-column:1/-1;border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;justify-content:space-between;}
 .footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
 
-/* ── SCROLL REVEAL ── */
+/* SCROLL REVEAL */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
 .d1{transition-delay:0.08s;}.d2{transition-delay:0.16s;}.d3{transition-delay:0.24s;}.d4{transition-delay:0.32s;}
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(max-width:1024px){
   nav{padding:0 24px;}
-  .nav-center{display:none;}
-  .section{padding:80px 24px;}
+  .nav-links{display:none;}
+  .section,.law-section{padding:80px 24px;}
   .hero{padding:100px 24px 60px;}
-  .problem-grid,.law-inner,.contact-inner{grid-template-columns:1fr;}
+  .problem-bottom,.law-cards-grid{grid-template-columns:1fr;}
   .dual-grid{grid-template-columns:1fr;gap:16px;background:transparent;border:none;box-shadow:none;}
   .dual-card{border-radius:20px;border:1px solid var(--border);}
   .step-content{grid-template-columns:1fr;}
-  .phones-row{flex-wrap:wrap;}
+  .contact-inner{grid-template-columns:1fr;}
   footer{grid-template-columns:1fr 1fr;padding:40px 24px;}
-  .final-cta{padding:100px 24px;}
+  .phones-row{gap:12px;}
+  .phn{width:170px;}
+  .phn.main{width:184px;}
+}
+@media(max-width:768px){
+  .phones-row{flex-wrap:wrap;justify-content:center;}
+  .phn,.phn.main{width:200px;}
 }
 @media(max-width:600px){
   .hero-title{font-size:40px;}
   .hero-ctas{flex-direction:column;align-items:stretch;}
-  .btn-hero-primary,.btn-hero-secondary,.btn-final{justify-content:center;}
+  .btn-hero-store,.btn-hero-assoc{justify-content:center;}
   .hero-proof{flex-direction:column;gap:20px;}
   .proof-sep{width:40px;height:1px;}
   .form-row{grid-template-columns:1fr;}
@@ -319,16 +311,16 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="logo">revalis<span class="logo-dot">.</span></a>
-  <ul class="nav-center">
+  <a href="#" class="logo">revalis</a>
+  <ul class="nav-links">
     <li><a href="#probleme">Le problème</a></li>
     <li><a href="#comment">Comment ça marche</a></li>
     <li><a href="#loi">Cadre légal</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="#contact" class="btn-ghost">Se connecter</a>
-    <a href="#contact" class="btn-forest">
+    <a href="#contact" class="btn-ghost" onclick="setTab('other')">Se connecter</a>
+    <a href="#contact" class="btn-forest-sm" onclick="setTab('store')">
       Rejoindre le réseau
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -338,31 +330,83 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-eyebrow"><div class="eyebrow-dot"></div>Lancé à Paris — Île-de-France</div>
-  <h1 class="hero-title">Chaque surplus<br>mérite une<br><span class="green">seconde vie.</span></h1>
-  <p class="hero-sub">Revalis connecte les <strong>supermarchés</strong> et les <strong>associations humanitaires</strong> pour transformer les invendus alimentaires en dons utiles — en moins de 20 secondes, sans paperasse.</p>
+  <div class="hero-eyebrow">
+    <span class="eyebrow-flag">🇫🇷</span>
+    Produit français — Île-de-France
+  </div>
+  <h1 class="hero-title">
+    Chaque surplus<br>mérite une<br><span class="green">seconde vie.</span>
+  </h1>
+  <p class="hero-sub">
+    Revalis connecte les <strong>supermarchés</strong> et les <strong>associations humanitaires</strong> pour transformer les invendus alimentaires en dons utiles — en quelques secondes, sans paperasse.
+  </p>
   <div class="hero-ctas">
-    <a href="#contact" class="btn-hero-primary">Je suis un supermarché<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#contact" class="btn-hero-secondary">Je suis une association<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="#contact" class="btn-hero-store" onclick="setTab('store')">
+      Je suis un supermarché
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="#contact" class="btn-hero-assoc" onclick="setTab('assoc')">
+      Je suis une association
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
   </div>
   <div class="hero-proof">
-    <div class="proof-item"><div class="proof-num">20<span>s</span></div><div class="proof-label">Pour déclarer un lot</div></div>
+    <div class="proof-item">
+      <div class="proof-num">20<span>s</span></div>
+      <div class="proof-label">Pour déclarer un lot</div>
+    </div>
     <div class="proof-sep"></div>
-    <div class="proof-item"><div class="proof-num">60<span>%</span></div><div class="proof-label">Réduction d'impôt</div></div>
+    <div class="proof-item">
+      <div class="proof-num">60<span>%</span></div>
+      <div class="proof-label">Réduction d'impôt</div>
+    </div>
     <div class="proof-sep"></div>
-    <div class="proof-item"><div class="proof-num">0<span>€</span></div><div class="proof-label">Pour les associations</div></div>
+    <div class="proof-item">
+      <div class="proof-num">0<span>€</span></div>
+      <div class="proof-label">Pour les associations</div>
+    </div>
     <div class="proof-sep"></div>
-    <div class="proof-item"><div class="proof-num">Loi<span> Garot</span></div><div class="proof-label">Cadre légal solide</div></div>
+    <div class="proof-item">
+      <div class="proof-num">Loi<span> Garot</span></div>
+      <div class="proof-label">Cadre légal solide</div>
+    </div>
   </div>
 </section>
 
 <!-- LOGOS -->
 <div class="logos-band">
   <span class="logos-label">Conçu pour</span>
-  <div class="logos-sep"></div>
+  <div class="logos-sep-line"></div>
   <div class="logos-scroll">
     <div class="logos-track">
-      <span class="logo-item">Carrefour</span><span class="logo-item">Monoprix</span><span class="logo-item">E.Leclerc</span><span class="logo-item">Intermarché</span><span class="logo-item">Franprix</span><span class="logo-item">Restos du Cœur</span><span class="logo-item">Banque Alimentaire</span><span class="logo-item">Secours Populaire</span><span class="logo-item">Croix-Rouge Française</span><span class="logo-item">Carrefour</span><span class="logo-item">Monoprix</span><span class="logo-item">E.Leclerc</span><span class="logo-item">Intermarché</span><span class="logo-item">Franprix</span><span class="logo-item">Restos du Cœur</span><span class="logo-item">Banque Alimentaire</span><span class="logo-item">Secours Populaire</span><span class="logo-item">Croix-Rouge Française</span>
+      <span class="logo-item">Carrefour</span>
+      <span class="logo-item">Monoprix</span>
+      <span class="logo-item">E.Leclerc</span>
+      <span class="logo-item">Intermarché</span>
+      <span class="logo-item">Franprix</span>
+      <span class="logo-item">Casino</span>
+      <span class="logo-item">Lidl</span>
+      <span class="logo-item">Aldi</span>
+      <span class="logo-item">Super U</span>
+      <span class="logo-item">Restos du Cœur</span>
+      <span class="logo-item">Banque Alimentaire</span>
+      <span class="logo-item">Secours Populaire</span>
+      <span class="logo-item">Croix-Rouge Française</span>
+      <span class="logo-item">Épiceries Solidaires</span>
+      <span class="logo-item">Carrefour</span>
+      <span class="logo-item">Monoprix</span>
+      <span class="logo-item">E.Leclerc</span>
+      <span class="logo-item">Intermarché</span>
+      <span class="logo-item">Franprix</span>
+      <span class="logo-item">Casino</span>
+      <span class="logo-item">Lidl</span>
+      <span class="logo-item">Aldi</span>
+      <span class="logo-item">Super U</span>
+      <span class="logo-item">Restos du Cœur</span>
+      <span class="logo-item">Banque Alimentaire</span>
+      <span class="logo-item">Secours Populaire</span>
+      <span class="logo-item">Croix-Rouge Française</span>
+      <span class="logo-item">Épiceries Solidaires</span>
     </div>
   </div>
 </div>
@@ -370,43 +414,44 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
 <!-- PROBLEM -->
 <section id="probleme" class="section problem-section">
   <div class="section-inner">
-    <div class="problem-grid">
-      <div class="problem-visual reveal">
-        <div class="stat-card-big">
-          <div class="stat-pre">Gaspillage alimentaire en France</div>
-          <div class="stat-big-num">10M</div>
-          <div class="stat-big-sub">tonnes gaspillées chaque année.<br>La grande distribution en génère <strong>1,4 million de tonnes</strong>, dont une large part est évitable.</div>
-          <div class="stat-progress"><div class="stat-progress-fill" id="progress-bar"></div></div>
-          <div class="stat-progress-labels"><span>Part évitable en distribution</span><span>~30%</span></div>
+    <div class="problem-top reveal">
+      <div class="section-tag">Le problème</div>
+      <h2 class="section-title">Donner peut devenir<br>plus simple que <span class="italic">jeter.</span></h2>
+      <p class="section-sub">Des tonnes de nourriture parfaitement consommable finissent à la poubelle chaque jour en France — non pas par manque de volonté, mais par manque d'outil adapté au rythme du terrain.</p>
+    </div>
+    <div class="problem-bottom">
+      <div class="prob-card reveal d1">
+        <div class="prob-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#c0392b" stroke-width="1.4"/><path d="M9 6v4.5M9 12.5v.5" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
-        <div class="pain-cards">
-          <div class="pain-card">
-            <div class="pain-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#c0392b" stroke-width="1.3"/><path d="M8 5v4M8 11v.5" stroke="#c0392b" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-            <div>
-              <div class="pain-title">Pas le temps de donner</div>
-              <div class="pain-desc">Organiser un don manuellement = 20 min de démarches. Résultat : les produits finissent à la poubelle.</div>
-            </div>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#c0392b" stroke-width="1.3"/><path d="M8 5v4M8 11v.5" stroke="#c0392b" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-            <div>
-              <div class="pain-title">Alertes trop tardives</div>
-              <div class="pain-desc">Sans notification en temps réel, les associations arrivent après la destruction du lot.</div>
-            </div>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#c0392b" stroke-width="1.3"/><path d="M8 5v4M8 11v.5" stroke="#c0392b" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-            <div>
-              <div class="pain-title">Zéro traçabilité fiscale</div>
-              <div class="pain-desc">Sans justificatif automatique, les magasins perdent leur droit à la réduction d'impôt de 60%.</div>
-            </div>
-          </div>
+        <div class="prob-title">Une friction opérationnelle réelle</div>
+        <div class="prob-desc">Coordonner un don alimentaire en dehors d'un outil dédié mobilise du temps et de l'énergie que les équipes en magasin n'ont tout simplement pas au quotidien.</div>
+        <div class="prob-stat">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#c0392b" stroke-width="1.2"/><path d="M5 3v2.5L6.5 7" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round"/></svg>
+          20 min de démarches sans outil
         </div>
       </div>
-      <div class="reveal d2">
-        <div class="section-tag">Le problème</div>
-        <h2 class="section-title">Donner peut devenir<br>plus simple<br>que <span class="italic">jeter.</span></h2>
-        <p class="section-sub">Des tonnes de nourriture parfaitement consommable finissent à la poubelle chaque jour — non pas par manque de volonté, mais par manque d'outil adapté au rythme du terrain.</p>
+      <div class="prob-card reveal d2">
+        <div class="prob-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#c0392b" stroke-width="1.4"/><path d="M9 6v4.5M9 12.5v.5" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="prob-title">Une logistique difficile à synchroniser</div>
+        <div class="prob-desc">Les invendus ont une fenêtre de collecte très courte. Sans coordination en temps réel, les lots disponibles et les associations disponibles ne se trouvent pas au bon moment.</div>
+        <div class="prob-stat">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#c0392b" stroke-width="1.2"/><path d="M5 3v2.5L6.5 7" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Fenêtre de collecte souvent &lt; 2h
+        </div>
+      </div>
+      <div class="prob-card reveal d3">
+        <div class="prob-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#c0392b" stroke-width="1.4"/><path d="M9 6v4.5M9 12.5v.5" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="prob-title">Zéro traçabilité fiscale</div>
+        <div class="prob-desc">Sans justificatif automatique, les magasins perdent leur droit à la réduction d'impôt de 60% sur la valeur des dons alimentaires — un avantage fiscal pourtant significatif.</div>
+        <div class="prob-stat">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#c0392b" stroke-width="1.2"/><path d="M5 3v2.5L6.5 7" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round"/></svg>
+          60% de réduction d'impôt perdus
+        </div>
       </div>
     </div>
   </div>
@@ -425,7 +470,7 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
         <div class="dual-persona">Le Chef<br>de Rayon</div>
         <div class="dual-role">Directeur de supermarché · Paris</div>
         <div class="dual-needs">
-          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Interface professionnelle — déclaration en 20 secondes chrono</div>
+          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Interface professionnelle — déclaration en quelques secondes</div>
           <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Dashboard RSE — impact concret du magasin, utile pour les rapports annuels</div>
           <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Justificatifs fiscaux automatiques — 60% de réduction d'impôt (loi Coluche)</div>
           <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Conformité loi Garot — sans effort administratif supplémentaire</div>
@@ -445,7 +490,7 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- HOW -->
 <section id="comment" class="section how-section">
   <div class="section-inner">
     <div class="reveal" style="text-align:center;">
@@ -463,12 +508,10 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
           </div>
           <div class="step-visual">
             <div style="font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Interface donateur</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;"><div style="font-size:13px;font-weight:500;color:var(--ink);">Fruits & légumes disqualifiés</div><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="var(--sub)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                <div style="background:var(--off);border:1.5px solid var(--forest);border-radius:10px;padding:12px 14px;"><div style="font-size:10px;color:var(--forest);font-weight:600;margin-bottom:2px;">Volume</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);">12 kg</div></div>
-                <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:2px;">Limite</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);">18:30</div></div>
-              </div>
+            <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;color:var(--ink);">Fruits & légumes disqualifiés</div><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="var(--sub)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="background:var(--off);border:1.5px solid var(--forest);border-radius:10px;padding:12px 14px;"><div style="font-size:10px;color:var(--forest);font-weight:600;margin-bottom:2px;">Volume</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);">12 kg</div></div>
+              <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:2px;">Limite</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);">18:30</div></div>
             </div>
           </div>
         </div>
@@ -478,7 +521,7 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
         <div class="step-content">
           <div>
             <div class="step-title">Les associations reçoivent l'alerte</div>
-            <div class="step-desc">Notification push envoyée instantanément aux associations actives à proximité. Chaque association définit sa propre zone de collecte. Volume, distance, heure limite — tout est visible d'un coup d'œil.</div>
+            <div class="step-desc">Notification push envoyée instantanément aux associations actives à proximité. Chaque association définit sa propre zone de collecte. Volume, distance, heure limite — tout est visible en un coup d'œil.</div>
             <div class="step-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#1a4a2e" stroke-width="1.2"/><path d="M6 3.5V6l2 1.5" stroke="#1a4a2e" stroke-width="1.2" stroke-linecap="round"/></svg>Notification instantanée</div>
           </div>
           <div class="step-visual">
@@ -497,7 +540,7 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
         <div class="step-content">
           <div>
             <div class="step-title">Collecte & validation par QR Code</div>
-            <div class="step-desc">Le bénévole se rend sur place et scanne le QR Code affiché sur l'application. Le transfert est sécurisé et tracé, le justificatif fiscal est généré automatiquement pour le supermarché.</div>
+            <div class="step-desc">Le bénévole se rend sur place et scanne le QR Code affiché dans l'application. Le transfert est sécurisé et tracé, le justificatif fiscal est généré automatiquement pour le supermarché.</div>
             <div class="step-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Justificatif fiscal automatique</div>
           </div>
           <div class="step-visual qr-visual">
@@ -512,11 +555,8 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
                 <div class="qr-b"></div><div class="qr-b"></div><div class="qr-w"></div><div class="qr-b"></div><div class="qr-b"></div>
               </div>
             </div>
-            <div class="qr-chip">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Transfert validé · LOT-REV-2025
-            </div>
-            <div class="qr-label">Présenté sur place<br>par le bénévole</div>
+            <div class="qr-chip"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Transfert validé · LOT-REV-2025</div>
+            <div class="qr-lbl">Présenté sur place par le bénévole</div>
           </div>
         </div>
       </div>
@@ -533,11 +573,10 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
       <p style="font-size:16px;color:var(--muted);max-width:440px;margin:0 auto;font-weight:300;line-height:1.7;">Deux interfaces pensées pour deux contextes radicalement différents. L'une pour le rush du magasin, l'autre pour la route.</p>
     </div>
     <div class="phones-row">
-      <!-- Phone 1: Dashboard -->
       <div class="phn reveal d1">
         <div class="phn-inner phn-dark">
           <div class="phn-dark-nav">
-            <div class="phn-brand-w">revalis<span style="color:#4ade80;">.</span></div>
+            <div class="phn-brand-w">revalis</div>
             <div class="phn-active"><div class="phn-active-dot"></div><span class="phn-active-txt">Actif</span></div>
           </div>
           <div class="phn-impact-box">
@@ -554,10 +593,9 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
           <div class="phn-cta-w">+ Déclarer un surplus</div>
         </div>
       </div>
-      <!-- Phone 2: Form (center) -->
       <div class="phn main reveal">
         <div class="phn-inner phn-dark">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
             <div style="width:22px;height:22px;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:6px;display:flex;align-items:center;justify-content:center;"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M6 1.5L2.5 4.5 6 7.5" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" stroke-linecap="round"/></svg></div>
             <div style="font-family:'Playfair Display',serif;font-size:12px;font-weight:800;color:white;">Nouveau surplus</div>
           </div>
@@ -566,23 +604,22 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
           <div class="phn-form-lbl">Description</div>
           <div class="phn-input">Pommes, carottes difformes...</div>
           <div class="phn-row2">
-            <div><div class="phn-form-lbl">Volume (kg)</div><div class="phn-input active" style="font-family:'Playfair Display',serif;font-size:15px;font-weight:800;color:white;">12</div></div>
-            <div><div class="phn-form-lbl">Limite</div><div class="phn-input active" style="font-family:'Playfair Display',serif;font-size:15px;font-weight:800;color:white;">18:30</div></div>
+            <div><div class="phn-form-lbl">Volume (kg)</div><div class="phn-input active" style="font-family:'Playfair Display',serif;font-size:14px;font-weight:800;color:white;">12</div></div>
+            <div><div class="phn-form-lbl">Limite</div><div class="phn-input active" style="font-family:'Playfair Display',serif;font-size:14px;font-weight:800;color:white;">18:30</div></div>
           </div>
           <div class="phn-note">Les associations de votre zone seront alertées instantanément.</div>
           <div class="phn-cta-g">Envoyer l'alerte →</div>
         </div>
       </div>
-      <!-- Phone 3: Association feed -->
       <div class="phn reveal d1">
         <div class="phn-inner phn-light">
           <div class="phn-light-nav">
-            <div class="phn-brand-d">revalis<span class="dot">.</span></div>
+            <div class="phn-brand-d">revalis</div>
             <div class="phn-avatar">CJ</div>
           </div>
           <div class="phn-alert-box">
             <div class="phn-alert-t">Don disponible à 380 m</div>
-            <div class="phn-alert-s">Collecte avant 18h30 — agissez maintenant</div>
+            <div class="phn-alert-s">Collecte avant 18h30</div>
           </div>
           <div class="phn-feed-lbl">Disponible maintenant</div>
           <div class="phn-card">
@@ -591,9 +628,9 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
               <div class="phn-cd">18:30</div>
             </div>
             <div class="phn-card-b">
-              <div style="text-align:center;"><div class="phn-s-l">Volume</div><div class="phn-s-v">12<span class="phn-s-u"> kg</span></div></div>
-              <div style="text-align:center;"><div class="phn-s-l">Distance</div><div class="phn-s-v">380<span class="phn-s-u"> m</span></div></div>
-              <div style="text-align:center;"><div class="phn-s-l">Colis</div><div class="phn-s-v">3</div></div>
+              <div><div class="phn-s-l">Volume</div><div class="phn-s-v">12<span class="phn-s-u"> kg</span></div></div>
+              <div><div class="phn-s-l">Distance</div><div class="phn-s-v">380<span class="phn-s-u"> m</span></div></div>
+              <div><div class="phn-s-l">Colis</div><div class="phn-s-v">3</div></div>
             </div>
           </div>
           <div class="phn-cta-d">Prendre en charge →</div>
@@ -603,26 +640,35 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
   </div>
 </section>
 
-<!-- LAW SECTION -->
-<section id="loi" class="section law-section">
+<!-- LAW — 3 cards same size -->
+<section id="loi" class="law-section">
   <div class="law-inner">
-    <div class="reveal">
+    <div class="law-header reveal">
       <div class="section-tag">Cadre légal français</div>
-      <h2 class="section-title" style="color:white;">Un cadre légal<br>qui vous <span style="font-style:italic;color:rgba(255,255,255,0.4);">protège.</span></h2>
-      <p class="section-sub">La France dispose d'un des cadres législatifs les plus favorables au don alimentaire en Europe. Revalis s'appuie sur ces lois pour sécuriser chaque transaction.</p>
+      <h2 class="section-title">La loi est de<br><span class="italic" style="color:rgba(255,255,255,0.4);">votre côté.</span></h2>
+      <p class="section-sub">La France dispose d'un des cadres législatifs les plus favorables au don alimentaire en Europe. Revalis s'appuie sur ces lois pour sécuriser et valoriser chaque don.</p>
     </div>
-    <div class="law-cards reveal d2">
-      <div class="law-card">
-        <div class="law-card-title">Loi Garot<span class="law-card-num">2016-138</span></div>
-        <div class="law-card-desc">Oblige les supermarchés de +400m² à signer une convention de don avec une association habilitée. Revalis simplifie cette obligation et la rend opérationnelle au quotidien.</div>
+    <div class="law-cards-grid">
+      <div class="law-card reveal d1">
+        <div class="law-card-eyebrow">Obligation légale</div>
+        <div class="law-card-num-big">2016</div>
+        <div class="law-card-title">Loi Garot</div>
+        <div class="law-card-desc">Oblige les supermarchés de plus de 400m² à signer une convention de don avec une association habilitée. Revalis simplifie cette obligation et la rend opérationnelle au quotidien.</div>
+        <div class="law-ref">Loi n° 2016-138</div>
       </div>
-      <div class="law-card">
-        <div class="law-card-title">Loi Coluche<span class="law-card-num">Art. 238 bis CGI</span></div>
-        <div class="law-card-desc">60% de réduction d'impôt sur la valeur des dons en nature aux associations agréées. Revalis génère automatiquement les reçus fiscaux nécessaires pour chaque lot donné.</div>
+      <div class="law-card reveal d2">
+        <div class="law-card-eyebrow">Avantage fiscal</div>
+        <div class="law-card-num-big">60<em>%</em></div>
+        <div class="law-card-title">Loi Coluche</div>
+        <div class="law-card-desc">60% de réduction d'impôt sur la valeur des dons en nature aux associations agréées. Revalis génère automatiquement les reçus fiscaux pour chaque lot donné.</div>
+        <div class="law-ref">Art. 238 bis CGI</div>
       </div>
-      <div class="law-highlight">
-        <div class="law-highlight-num">60<em>%</em></div>
-        <div class="law-highlight-desc">de réduction d'impôt sur chaque don tracé via Revalis. Pour un magasin qui donne 10 000€ de produits par an, c'est 6 000€ d'impôts économisés.</div>
+      <div class="law-card reveal d3">
+        <div class="law-card-eyebrow">En chiffres</div>
+        <div class="law-card-num-big">6k<em>€</em></div>
+        <div class="law-card-title">Économie annuelle type</div>
+        <div class="law-card-desc">Pour un magasin qui donne 10 000€ de produits par an via Revalis, ce sont 6 000€ d'impôts économisés — directement visibles sur la déclaration fiscale.</div>
+        <div class="law-ref">Calcul indicatif</div>
       </div>
     </div>
   </div>
@@ -632,90 +678,123 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
 <section id="contact" class="section contact-section">
   <div class="section-inner">
     <div class="contact-inner">
-      <div class="reveal">
+      <div class="contact-left reveal">
         <div class="section-tag">Nous rejoindre</div>
         <h2 class="section-title">Agissons<br><span class="italic">ensemble.</span></h2>
-        <p class="section-sub">Que vous soyez supermarché ou association — écrivez-nous. Chaque message compte.</p>
-        <div style="margin-top:40px;display:flex;flex-direction:column;gap:20px;">
-          <div style="display:flex;align-items:flex-start;gap:14px;">
-            <div style="width:40px;height:40px;background:var(--forest-light);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 5a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" stroke="#1a4a2e" stroke-width="1.4"/><path d="M3 7l6 4 6-4" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-            <div><div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;">Email</div><div style="font-size:14px;color:var(--muted);">contact@revalis.fr</div></div>
+        <p class="section-sub">Que vous soyez supermarché ou association — prenons contact. On vous répond sous 24h.</p>
+        <div class="contact-info-cards">
+          <div class="contact-info-card">
+            <div class="cic-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 5a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" stroke="#1a4a2e" stroke-width="1.4"/><path d="M3 7l6 4 6-4" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="cic-title">Écrivez-nous</div>
+            <div class="cic-desc">Pour toute question, partenariat ou demande de démo — notre équipe vous répond rapidement.</div>
+            <div class="cic-value">contact@revalis.fr</div>
+          </div>
+          <div class="contact-info-card">
+            <div class="cic-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2a5 5 0 100 10A5 5 0 009 2z" stroke="#1a4a2e" stroke-width="1.4"/><path d="M5.5 16c0-2 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="cic-title">Vous êtes une enseigne ?</div>
+            <div class="cic-desc">Nous accompagnons les directions RSE et les chefs de rayon pour une intégration sans friction dans les process existants.</div>
+            <div class="cic-value">Demander une démo →</div>
+          </div>
+          <div class="contact-info-card">
+            <div class="cic-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3l1.5 4.5H15l-3.75 2.72 1.43 4.4L9 12.1l-3.68 2.62 1.43-4.4L3 7.5h4.5L9 3z" stroke="#1a4a2e" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+            <div class="cic-title">Vous êtes une association ?</div>
+            <div class="cic-desc">L'accès à Revalis est entièrement gratuit pour les associations humanitaires. Rejoignez le réseau en quelques minutes.</div>
+            <div class="cic-value">Accès gratuit →</div>
           </div>
         </div>
       </div>
       <div class="contact-form reveal d2">
         <div class="form-title">Envoyer un message</div>
-        <div class="form-sub">Dites-nous qui vous êtes et ce que vous cherchez. On vous répond sous 24h.</div>
+        <div class="form-sub">Dites-nous qui vous êtes et ce que vous cherchez.</div>
         <div class="form-tabs">
-          <button class="form-tab active" onclick="switchTab(this,'store')">Supermarché</button>
-          <button class="form-tab" onclick="switchTab(this,'assoc')">Association</button>
-          <button class="form-tab" onclick="switchTab(this,'other')">Autre</button>
+          <button class="form-tab active" id="tab-store" onclick="switchTab(this,'store')">Supermarché</button>
+          <button class="form-tab" id="tab-assoc" onclick="switchTab(this,'assoc')">Association</button>
+          <button class="form-tab" id="tab-other" onclick="switchTab(this,'other')">Autre</button>
         </div>
         <div class="form-row">
           <div class="form-field"><label class="field-label">Prénom</label><input type="text" class="field-input" placeholder="Marie"></div>
           <div class="form-field"><label class="field-label">Nom</label><input type="text" class="field-input" placeholder="Dupont"></div>
         </div>
         <div class="form-field"><label class="field-label">Email professionnel</label><input type="email" class="field-input" placeholder="marie@monoprix.fr"></div>
-        <div class="form-field" id="org-field"><label class="field-label">Nom de votre enseigne</label><input type="text" class="field-input" placeholder="Monoprix République"></div>
+        <div class="form-field" id="org-field"><label class="field-label" id="org-label">Nom de votre enseigne</label><input type="text" class="field-input" id="org-input" placeholder="Monoprix République"></div>
         <div class="form-field"><label class="field-label">Votre message</label><textarea class="field-input" rows="4" placeholder="Dites-nous en quelques mots votre situation..."></textarea></div>
-        <button class="btn-submit" onclick="handleSubmit(this)">Envoyer ma demande<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="btn-submit" onclick="handleSubmit(this)">
+          Envoyer ma demande
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
         <p class="form-note">Vos données restent confidentielles et ne sont jamais revendues.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <h2 class="final-title reveal">Ensemble, faisons du don<br>alimentaire <span class="green">un réflexe.</span></h2>
-  <p class="final-sub reveal d1">La technologie existe. La loi est là. Il ne manque que vous.</p>
-  <a href="#contact" class="btn-final reveal d2">Rejoindre le réseau<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div>
-    <div class="footer-logo-txt">revalis<span class="footer-logo-dot">.</span></div>
-    <div class="footer-tagline">Connecting surplus to solidarity.<br>Paris, Île-de-France.</div>
+    <div class="footer-logo-txt">revalis</div>
+    <div class="footer-tagline">Connecting surplus to solidarity.<br>Paris, France.</div>
   </div>
   <div>
     <div class="footer-col-title">Produit</div>
-    <ul class="footer-links"><li><a href="#probleme">Le problème</a></li><li><a href="#comment">Comment ça marche</a></li><li><a href="#loi">Cadre légal</a></li></ul>
+    <ul class="footer-links">
+      <li><a href="#probleme">Le problème</a></li>
+      <li><a href="#comment">Comment ça marche</a></li>
+      <li><a href="#loi">Cadre légal</a></li>
+    </ul>
   </div>
   <div>
     <div class="footer-col-title">Rejoindre</div>
-    <ul class="footer-links"><li><a href="#contact">Supermarché</a></li><li><a href="#contact">Association</a></li></ul>
+    <ul class="footer-links">
+      <li><a href="#contact" onclick="setTab('store')">Supermarché</a></li>
+      <li><a href="#contact" onclick="setTab('assoc')">Association</a></li>
+    </ul>
   </div>
   <div>
     <div class="footer-col-title">Contact</div>
-    <ul class="footer-links"><li><a href="mailto:contact@revalis.fr">contact@revalis.fr</a></li></ul>
+    <ul class="footer-links">
+      <li><a href="mailto:contact@revalis.fr">contact@revalis.fr</a></li>
+    </ul>
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 Revalis — Tous droits réservés</div>
-    <div class="footer-copy">Paris</div>
+    <div class="footer-copy">Paris, France</div>
   </div>
 </footer>
 
 <script>
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40);});
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target);}});},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-const pb=document.getElementById('progress-bar');
-const pbO=new IntersectionObserver(e=>{if(e[0].isIntersecting){pb.classList.add('animate');pbO.disconnect();}},{threshold:0.5});
-pbO.observe(pb);
-function switchTab(btn,type){
-  document.querySelectorAll('.form-tab').forEach(t=>t.classList.remove('active'));
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Form tabs
+function switchTab(btn, type) {
+  document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  const lbl=document.querySelector('#org-field label');
-  const inp=document.querySelector('#org-field input');
-  if(type==='store'){lbl.textContent='Nom de votre enseigne';inp.placeholder='Monoprix République';}
-  else if(type==='assoc'){lbl.textContent='Nom de votre association';inp.placeholder='Les Restos du Cœur — 11e';}
-  else{lbl.textContent='Votre organisation';inp.placeholder='Nom de votre structure';}
+  const lbl = document.getElementById('org-label');
+  const inp = document.getElementById('org-input');
+  if (type === 'store') { lbl.textContent = 'Nom de votre enseigne'; inp.placeholder = 'Monoprix République'; }
+  else if (type === 'assoc') { lbl.textContent = 'Nom de votre association'; inp.placeholder = 'Les Restos du Cœur — 11e'; }
+  else { lbl.textContent = 'Votre organisation'; inp.placeholder = 'Nom de votre structure'; }
 }
-function handleSubmit(btn){
-  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Message envoyé !';
-  btn.style.background='#2d7a4f';btn.disabled=true;
+
+// Set tab from external link (hero buttons, footer)
+function setTab(type) {
+  const map = { store: 'tab-store', assoc: 'tab-assoc', other: 'tab-other' };
+  const btn = document.getElementById(map[type]);
+  if (btn) switchTab(btn, type);
+}
+
+// Submit feedback
+function handleSubmit(btn) {
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Message envoyé !';
+  btn.style.background = '#2d7a4f';
+  btn.disabled = true;
 }
 </script>
 </body>
