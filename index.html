@@ -5,314 +5,732 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Revalis — Le surplus devient solidarité</title>
 <meta name="description" content="Revalis connecte les supermarchés et les associations pour transformer les invendus alimentaires en dons utiles. Simple, rapide, tracé.">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-family='Georgia,serif' font-size='26' font-weight='900' fill='%230e0e0e'>r</text></svg>">
+
+<!-- Favicon: r minuscule noir, transparent -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='3' y='26' font-family='Georgia,serif' font-size='24' font-weight='900' fill='%230e0e0e'>r</text></svg>">
+
+<!-- Google Fonts avec display=swap pour éviter le FOIT -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --white:#ffffff;
-  --off:#f7f6f2;
-  --off2:#f0efe9;
-  --ink:#0e0e0e;
-  --ink2:#1a1a1a;
-  --muted:#6b6b6b;
-  --sub:#9a9a9a;
-  --border:#e8e6e0;
-  --border2:#d4d2cc;
-  --forest:#1a4a2e;
-  --forest2:#22613c;
-  --forest3:#2d7a4f;
-  --forest-light:#e8f2ec;
-  --forest-mid:rgba(26,74,46,0.08);
-  --red:#c0392b;
-  --red-light:#fdf1f0;
-  --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:0 4px 16px rgba(0,0,0,0.07),0 2px 6px rgba(0,0,0,0.04);
-  --shadow-lg:0 16px 48px rgba(0,0,0,0.09),0 4px 16px rgba(0,0,0,0.05);
+/* ─────────────────────────────────────────────
+   RESET & TOKENS
+───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Surfaces */
+  --bg:        #ffffff;
+  --surface:   #f3f3ef;
+  --surface2:  #eceae4;
+
+  /* Ink */
+  --ink:       #0e0e0e;
+  --ink2:      #1c1c1c;
+  --muted:     #5a5a5a;
+  --sub:       #8c8c8c;
+
+  /* Borders */
+  --border:    #e2e0da;
+  --border2:   #cccac4;
+
+  /* Brand */
+  --forest:    #1a4a2e;
+  --forest2:   #1f5935;
+  --forest3:   #27703f;
+  --forest-t:  #edf4f0;
+  --forest-m:  rgba(26,74,46,0.07);
+
+  /* Status */
+  --red:       #b83232;
+  --red-t:     #fdf0f0;
+
+  /* Shadows */
+  --sh-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --sh-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --sh-md: 0 8px 24px rgba(0,0,0,0.07);
+  --sh-lg: 0 20px 48px rgba(0,0,0,0.08);
+
+  /* Easing (Emil Kowalski) */
+  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;line-height:1.6;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 56px;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.94);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color 0.3s;}
-nav.scrolled{border-bottom-color:var(--border);}
-.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-0.02em;}
-.nav-links{display:flex;gap:32px;list-style:none;}
-.nav-links a{font-size:14px;color:var(--muted);text-decoration:none;font-weight:400;transition:color 0.2s;}
-.nav-links a:hover{color:var(--ink);}
-.nav-right{display:flex;align-items:center;gap:10px;}
-.btn-ghost{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);background:transparent;border:1.5px solid var(--border2);border-radius:8px;padding:8px 16px;cursor:pointer;text-decoration:none;transition:all 0.2s;}
-.btn-ghost:hover{border-color:var(--ink);background:var(--ink);color:white;}
-.btn-forest-sm{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:white;background:var(--forest);border:none;border-radius:8px;padding:9px 18px;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
-.btn-forest-sm:hover{background:var(--forest2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,74,46,0.25);}
+/* ─────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 56px 80px;background:var(--white);position:relative;text-align:center;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(26,74,46,0.04) 0%,transparent 70%);pointer-events:none;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--forest-light);border:1px solid rgba(26,74,46,0.15);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--forest);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:36px;opacity:0;animation:riseUp 0.7s ease 0.1s forwards;}
-.eyebrow-flag{font-size:14px;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:800;line-height:1.0;letter-spacing:-0.03em;color:var(--ink);max-width:860px;margin-bottom:28px;opacity:0;animation:riseUp 0.8s ease 0.2s forwards;}
-.hero-title .green{color:var(--forest);}
-.hero-title .italic{font-style:italic;font-weight:700;color:var(--muted);}
-.hero-sub{font-size:18px;color:var(--muted);max-width:560px;line-height:1.7;margin-bottom:48px;font-weight:300;opacity:0;animation:riseUp 0.8s ease 0.35s forwards;}
-.hero-sub strong{color:var(--ink);font-weight:500;}
-.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:72px;opacity:0;animation:riseUp 0.8s ease 0.5s forwards;}
-.btn-hero-store{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:white;background:var(--forest);border:none;border-radius:10px;padding:15px 32px;cursor:pointer;text-decoration:none;transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;}
-.btn-hero-store:hover{background:var(--forest2);transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,74,46,0.3);}
-.btn-hero-assoc{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--ink);background:transparent;border:1.5px solid var(--border2);border-radius:10px;padding:15px 32px;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
-.btn-hero-assoc:hover{border-color:var(--ink);}
-.hero-proof{display:flex;align-items:center;justify-content:center;gap:40px;opacity:0;animation:riseUp 0.8s ease 0.65s forwards;}
-.proof-item{text-align:center;}
-.proof-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--ink);letter-spacing:-0.03em;line-height:1;}
-.proof-num span{color:var(--forest);}
-.proof-label{font-size:12px;color:var(--sub);font-weight:400;margin-top:4px;}
-.proof-sep{width:1px;height:40px;background:var(--border2);}
-@keyframes riseUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 
-/* LOGOS */
-.logos-band{background:var(--off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 56px;display:flex;align-items:center;gap:16px;}
-.logos-label{font-size:12px;color:var(--sub);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
-.logos-sep-line{width:1px;height:24px;background:var(--border2);flex-shrink:0;}
-.logos-scroll{flex:1;overflow:hidden;position:relative;}
-.logos-scroll::before,.logos-scroll::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:10;}
-.logos-scroll::before{left:0;background:linear-gradient(90deg,var(--off),transparent);}
-.logos-scroll::after{right:0;background:linear-gradient(-90deg,var(--off),transparent);}
-.logos-track{display:flex;gap:48px;animation:slide 28s linear infinite;width:max-content;}
-.logo-item{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--border2);letter-spacing:0.02em;white-space:nowrap;}
-@keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+::selection { background: rgba(26,74,46,0.12); color: var(--forest); }
 
-/* SECTIONS */
-.section{padding:120px 56px;}
-.section-inner{max-width:1200px;margin:0 auto;}
-.section-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);margin-bottom:20px;}
-.section-tag::before{content:'';display:block;width:24px;height:1.5px;background:var(--forest);}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4.5vw,54px);font-weight:800;color:var(--ink);letter-spacing:-0.03em;line-height:1.05;margin-bottom:20px;}
-.section-title .italic{font-style:italic;color:var(--forest);}
-.section-sub{font-size:17px;color:var(--muted);line-height:1.7;max-width:520px;font-weight:300;}
+/* ─────────────────────────────────────────────
+   SKIP LINK (a11y P1)
+───────────────────────────────────────────── */
+.skip-link {
+  position: absolute; top: 12px; left: 12px; z-index: 9999;
+  background: var(--ink); color: white;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+  padding: 10px 16px; border-radius: 8px; text-decoration: none;
+  transform: translateY(-120%);
+  transition: transform 0.2s var(--ease-out);
+  outline: 2px solid white;
+}
+.skip-link:focus { transform: translateY(0); }
 
-/* PROBLEM — redesigned for balance */
-.problem-section{background:var(--off);}
-.problem-top{text-align:center;margin-bottom:64px;}
-.problem-top .section-tag{justify-content:center;}
-.problem-top .section-title{max-width:600px;margin:0 auto 16px;}
-.problem-top .section-sub{max-width:560px;margin:0 auto;}
-.problem-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);border-radius:20px;overflow:hidden;}
-.prob-card{background:white;padding:36px 32px;}
-.prob-card:hover{background:var(--off);}
-.prob-icon{width:40px;height:40px;background:var(--red-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
-.prob-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;margin-bottom:10px;line-height:1.2;}
-.prob-desc{font-size:14px;color:var(--muted);line-height:1.65;}
-.prob-stat{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:var(--red-light);border:1px solid rgba(192,57,43,0.12);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--red);}
+/* ─────────────────────────────────────────────
+   NAV
+───────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 0 56px; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s var(--ease-out);
+}
+nav.scrolled { border-bottom-color: var(--border); }
 
-/* DUAL PERSONAS */
-.dual-section{background:white;}
-.dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:64px;border-radius:24px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);}
-.dual-card{padding:48px;position:relative;}
-.dual-card.for-store{background:var(--forest);}
-.dual-card.for-assoc{background:white;}
-.dual-card.for-store::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(255,255,255,0.3),rgba(255,255,255,0.05));}
-.dual-tag{display:inline-flex;align-items:center;gap:6px;border-radius:100px;padding:5px 12px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:28px;}
-.tag-store{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.2);}
-.tag-assoc{background:var(--forest-light);color:var(--forest);border:1px solid rgba(26,74,46,0.15);}
-.dual-persona{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:6px;}
-.for-store .dual-persona{color:white;}
-.for-assoc .dual-persona{color:var(--ink);}
-.dual-role{font-size:14px;font-weight:400;margin-bottom:28px;}
-.for-store .dual-role{color:rgba(255,255,255,0.55);}
-.for-assoc .dual-role{color:var(--sub);}
-.dual-needs{display:flex;flex-direction:column;gap:14px;}
-.dual-need{display:flex;align-items:flex-start;gap:12px;font-size:14px;line-height:1.55;}
-.for-store .dual-need{color:rgba(255,255,255,0.82);}
-.for-assoc .dual-need{color:var(--muted);}
-.need-ico{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.for-store .need-ico{background:rgba(255,255,255,0.15);}
-.for-assoc .need-ico{background:var(--forest-mid);}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 21px; font-weight: 800;
+  color: var(--ink); text-decoration: none;
+  letter-spacing: -0.025em;
+}
+.logo:focus-visible { outline: 2px solid var(--forest); outline-offset: 4px; border-radius: 4px; }
 
-/* HOW */
-.how-section{background:var(--off);}
-.steps-container{margin-top:64px;}
-.step-row{display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;padding:40px 0;border-top:1px solid var(--border);}
-.step-row:last-child{border-bottom:1px solid var(--border);}
-.step-num-big{font-family:'Playfair Display',serif;font-size:48px;font-weight:800;color:var(--off2);letter-spacing:-0.04em;line-height:1;padding-top:4px;}
-.step-content{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
-.step-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;margin-bottom:10px;line-height:1.15;}
-.step-desc{font-size:15px;color:var(--muted);line-height:1.7;font-weight:300;}
-.step-chip{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:var(--forest-light);border:1px solid rgba(26,74,46,0.15);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--forest);}
-.step-visual{background:white;border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow-sm);}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 400;
+  transition: color 0.2s var(--ease-out);
+  border-radius: 4px;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:focus-visible { outline: 2px solid var(--forest); outline-offset: 4px; }
 
-/* APP PREVIEW */
-.app-section{background:white;}
-.app-header{text-align:center;margin-bottom:72px;}
-.phones-row{display:flex;align-items:center;justify-content:center;gap:24px;}
-.phn{width:210px;border-radius:36px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);flex-shrink:0;}
-.phn.main{width:224px;box-shadow:0 24px 56px rgba(0,0,0,0.1),0 8px 24px rgba(0,0,0,0.06);}
-.phn-inner{padding:20px 14px 18px;}
-.phn-dark{background:#0a0a12;}
-.phn-light{background:#f7f8fa;}
+.nav-right { display: flex; align-items: center; gap: 10px; }
 
-/* dark phone */
-.phn-dark-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.phn-brand-w{font-family:'Playfair Display',serif;font-size:13px;font-weight:800;color:white;letter-spacing:-0.02em;}
-.phn-active{display:flex;align-items:center;gap:4px;background:rgba(26,74,46,0.3);border:0.5px solid rgba(26,74,46,0.5);border-radius:20px;padding:3px 8px;}
-.phn-active-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.4;}}
-.phn-active-txt{font-size:8px;color:#4ade80;font-weight:600;}
-.phn-impact-box{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px;margin-bottom:10px;}
-.phn-impact-lbl{font-size:7px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:8px;}
-.phn-impact-row{display:flex;gap:20px;}
-.phn-imp-n{font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:white;letter-spacing:-0.03em;line-height:1;}
-.phn-imp-l{font-size:7px;color:rgba(255,255,255,0.3);margin-top:3px;}
-.phn-list-lbl{font-size:7px;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:6px;}
-.phn-lot{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.06);border-radius:7px;padding:8px 9px;margin-bottom:5px;}
-.phn-lot-n{font-size:9px;font-weight:600;color:rgba(255,255,255,0.8);}
-.phn-lot-w{font-size:7px;color:rgba(255,255,255,0.3);margin-top:1px;}
-.phn-badge{font-size:7px;font-weight:700;padding:2px 6px;border-radius:4px;}
-.bg{background:rgba(74,222,128,0.12);color:#4ade80;}
-.by{background:rgba(251,191,36,0.12);color:#fbbf24;}
-.phn-cta-w{background:white;border-radius:8px;padding:10px;text-align:center;font-family:'Playfair Display',serif;font-size:9px;font-weight:700;color:#0a0a12;margin-top:10px;}
+.btn-ghost {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 500; color: var(--ink);
+  background: transparent; border: 1.5px solid var(--border2);
+  border-radius: 8px; padding: 8px 16px; cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.16s var(--ease-out);
+}
+.btn-ghost:hover  { border-color: var(--ink); background: var(--ink); color: white; }
+.btn-ghost:active { transform: scale(0.97); }
+.btn-ghost:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
 
-/* form phone */
-.phn-form-lbl{font-size:7px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:4px;}
-.phn-input{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 10px;font-size:9px;color:rgba(255,255,255,0.5);margin-bottom:8px;}
-.phn-input.active{border-color:rgba(26,74,46,0.6);color:rgba(255,255,255,0.85);}
-.phn-row2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;}
-.phn-note{background:rgba(26,74,46,0.1);border:0.5px solid rgba(26,74,46,0.2);border-radius:7px;padding:8px 9px;font-size:7px;color:rgba(74,222,128,0.7);line-height:1.5;margin-bottom:8px;}
-.phn-cta-g{background:var(--forest);border-radius:8px;padding:10px;text-align:center;font-family:'Playfair Display',serif;font-size:9px;font-weight:700;color:white;}
+.btn-nav {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600; color: white;
+  background: var(--forest); border: none;
+  border-radius: 8px; padding: 9px 18px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  transition: background 0.2s, transform 0.16s var(--ease-out), box-shadow 0.2s;
+}
+.btn-nav:hover  { background: var(--forest2); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(26,74,46,0.22); }
+.btn-nav:active { transform: scale(0.97) translateY(0); }
+.btn-nav:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
 
-/* light phone */
-.phn-light-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-.phn-brand-d{font-family:'Playfair Display',serif;font-size:13px;font-weight:800;color:#0e0e0e;letter-spacing:-0.02em;}
-.phn-avatar{width:24px;height:24px;border-radius:50%;background:var(--forest-light);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:var(--forest);}
-.phn-alert-box{background:rgba(192,57,43,0.06);border:0.5px solid rgba(192,57,43,0.15);border-radius:9px;padding:9px 10px;margin-bottom:9px;}
-.phn-alert-t{font-size:9px;font-weight:700;color:#c0392b;margin-bottom:2px;}
-.phn-alert-s{font-size:7px;color:rgba(192,57,43,0.6);line-height:1.4;}
-.phn-feed-lbl{font-size:7px;color:rgba(13,27,46,0.35);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:6px;}
-.phn-card{background:white;border:0.5px solid rgba(13,27,46,0.08);border-radius:11px;overflow:hidden;margin-bottom:7px;box-shadow:0 1px 4px rgba(13,27,46,0.05);}
-.phn-card-h{padding:9px 10px 7px;border-bottom:0.5px solid rgba(13,27,46,0.06);display:flex;justify-content:space-between;align-items:flex-start;}
-.phn-store-n{font-size:9px;font-weight:700;color:#0e0e0e;}
-.phn-store-s{font-size:7px;color:rgba(13,27,46,0.4);margin-top:1px;}
-.phn-cd{font-size:9px;font-weight:700;color:#c0392b;font-family:'DM Mono',monospace;}
-.phn-card-b{padding:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;text-align:center;}
-.phn-s-l{font-size:6px;color:rgba(13,27,46,0.35);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:3px;}
-.phn-s-v{font-family:'Playfair Display',serif;font-size:15px;font-weight:800;color:#0e0e0e;letter-spacing:-0.02em;line-height:1;}
-.phn-s-u{font-size:8px;color:rgba(13,27,46,0.4);font-weight:400;}
-.phn-cta-d{background:#0e0e0e;border-radius:8px;padding:10px;text-align:center;font-family:'Playfair Display',serif;font-size:9px;font-weight:700;color:white;margin-top:4px;}
+/* ─────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 56px 80px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: min(800px, 100vw); height: 400px;
+  background: radial-gradient(ellipse, rgba(26,74,46,0.05) 0%, transparent 70%);
+  pointer-events: none; aria-hidden: true;
+}
+
+.hero-flag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--forest-t); border: 1px solid rgba(26,74,46,0.14);
+  border-radius: 100px; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; color: var(--forest);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  margin-bottom: 40px;
+  opacity: 0; animation: fadeUp 0.7s var(--ease-out) 0.05s forwards;
+}
+.flag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--forest); flex-shrink: 0; }
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 7.5vw, 88px);
+  font-weight: 800; line-height: 0.97;
+  letter-spacing: -0.03em; color: var(--ink);
+  max-width: min(820px, 90vw); margin-bottom: 28px;
+  text-wrap: balance;
+  opacity: 0; animation: fadeUp 0.8s var(--ease-out) 0.15s forwards;
+}
+.hero-title .hl    { color: var(--forest); }
+.hero-title .light { font-weight: 700; font-style: italic; color: var(--muted); }
+
+.hero-sub {
+  font-size: 18px; color: var(--muted);
+  max-width: min(520px, 90vw); line-height: 1.7; margin-bottom: 48px;
+  font-weight: 300;
+  opacity: 0; animation: fadeUp 0.8s var(--ease-out) 0.25s forwards;
+}
+.hero-sub strong { color: var(--ink); font-weight: 500; }
+
+.hero-ctas {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  margin-bottom: 72px;
+  opacity: 0; animation: fadeUp 0.8s var(--ease-out) 0.35s forwards;
+}
+.btn-cta-a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 600; color: white;
+  background: var(--forest); border: none; border-radius: 10px;
+  padding: 14px 28px; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.2s, transform 0.16s var(--ease-out), box-shadow 0.25s;
+}
+.btn-cta-a:hover  { background: var(--forest2); transform: translateY(-2px); box-shadow: 0 14px 32px rgba(26,74,46,0.25); }
+.btn-cta-a:active { transform: scale(0.97) translateY(0); }
+.btn-cta-a:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+
+.btn-cta-b {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  background: transparent; border: 1.5px solid var(--border2);
+  border-radius: 10px; padding: 14px 28px; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: border-color 0.2s, background 0.15s, transform 0.16s var(--ease-out);
+}
+.btn-cta-b:hover  { border-color: var(--ink); background: rgba(14,14,14,0.03); }
+.btn-cta-b:active { transform: scale(0.97); }
+.btn-cta-b:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+
+.hero-stats {
+  display: flex; align-items: center; gap: 40px;
+  opacity: 0; animation: fadeUp 0.8s var(--ease-out) 0.45s forwards;
+}
+.hstat { text-align: center; }
+.hstat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 800; color: var(--ink);
+  letter-spacing: -0.03em; line-height: 1;
+}
+.hstat-n em { color: var(--forest); font-style: normal; }
+.hstat-l { font-size: 12px; color: var(--sub); font-weight: 400; margin-top: 4px; }
+.hstat-sep { width: 1px; height: 36px; background: var(--border2); flex-shrink: 0; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────────
+   MARQUEE
+───────────────────────────────────────────── */
+.marquee-bar {
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  background: var(--surface); padding: 20px 0; overflow: hidden;
+}
+.marquee-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 56px;
+}
+.marquee-lbl {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--sub); white-space: nowrap; flex-shrink: 0;
+}
+.marquee-sep { width: 1px; height: 20px; background: var(--border2); flex-shrink: 0; }
+.marquee-scroll {
+  flex: 1; overflow: hidden; position: relative;
+}
+.marquee-scroll::before,
+.marquee-scroll::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 48px; z-index: 2;
+}
+.marquee-scroll::before { left: 0;  background: linear-gradient(90deg,  var(--surface), transparent); }
+.marquee-scroll::after  { right: 0; background: linear-gradient(-90deg, var(--surface), transparent); }
+.marquee-track {
+  display: flex; gap: 44px;
+  animation: marquee 28s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  font-size: 13px; font-weight: 600;
+  color: var(--border2); letter-spacing: 0.02em; white-space: nowrap;
+}
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ─────────────────────────────────────────────
+   SECTION WRAPPERS
+───────────────────────────────────────────── */
+.sec       { padding: 112px 56px; }
+.sec-inner { max-width: 1160px; margin: 0 auto; }
+
+/* Shared heading style */
+.sec-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 4.5vw, 54px);
+  font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1.05; color: var(--ink);
+  margin-bottom: 16px; text-wrap: balance;
+}
+.sec-h2 em { font-style: italic; color: var(--forest); }
+.sec-h2.center { text-align: center; }
+.sec-h2.white  { color: white; }
+.sec-h2.white em { color: rgba(255,255,255,0.38); }
+
+.sec-p {
+  font-size: 16px; color: var(--muted); line-height: 1.7; font-weight: 300;
+}
+.sec-p.center { text-align: center; max-width: 560px; margin: 0 auto; }
+
+/* ─────────────────────────────────────────────
+   PROBLEM
+───────────────────────────────────────────── */
+.prob-sec { background: var(--bg); }
+.prob-head { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+
+.prob-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border-radius: 14px; overflow: hidden;
+}
+.prob-card {
+  background: var(--bg); padding: 36px 32px;
+  transition: background 0.25s var(--ease-out);
+}
+.prob-card:hover { background: var(--surface); }
+.prob-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500; color: var(--sub);
+  letter-spacing: 0.1em; margin-bottom: 20px;
+}
+.prob-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 700; color: var(--ink);
+  letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.2;
+}
+.prob-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+.prob-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 18px; background: var(--red-t);
+  border: 1px solid rgba(184,50,50,0.1); border-radius: 6px;
+  padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(--red);
+}
+
+/* ─────────────────────────────────────────────
+   PERSONAS
+───────────────────────────────────────────── */
+.persona-sec { background: var(--surface); }
+.persona-head { text-align: center; max-width: 560px; margin: 0 auto 64px; }
+
+.persona-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+}
+.persona-card { padding: 52px 48px; position: relative; }
+.persona-store { background: var(--forest); }
+.persona-assoc { background: var(--bg); }
+.persona-store::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+}
+
+.p-badge {
+  display: inline-flex; align-items: center;
+  border-radius: 100px; padding: 4px 12px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.p-badge-s { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.18); }
+.p-badge-a { background: var(--forest-t); color: var(--forest); border: 1px solid rgba(26,74,46,0.14); }
+
+.p-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1.1; margin-bottom: 6px;
+}
+.persona-store .p-name { color: white; }
+.persona-assoc .p-name { color: var(--ink); }
+
+.p-role { font-size: 13px; font-weight: 400; margin-bottom: 32px; }
+.persona-store .p-role { color: rgba(255,255,255,0.5); }
+.persona-assoc .p-role { color: var(--sub); }
+
+.p-list { display: flex; flex-direction: column; gap: 13px; }
+.p-item { display: flex; align-items: flex-start; gap: 11px; font-size: 14px; line-height: 1.55; }
+.persona-store .p-item { color: rgba(255,255,255,0.78); }
+.persona-assoc .p-item { color: var(--muted); }
+
+.p-check {
+  width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
+.persona-store .p-check { background: rgba(255,255,255,0.12); }
+.persona-assoc .p-check { background: var(--forest-m); }
+
+/* ─────────────────────────────────────────────
+   HOW IT WORKS
+───────────────────────────────────────────── */
+.how-sec { background: var(--bg); }
+.how-head { text-align: center; max-width: 560px; margin: 0 auto 72px; }
+
+.steps { display: flex; flex-direction: column; }
+.step {
+  display: grid; grid-template-columns: 72px 1fr;
+  gap: 0 36px; padding: 44px 0;
+  border-top: 1px solid var(--border);
+}
+.step:last-child { border-bottom: 1px solid var(--border); }
+.step-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 44px; font-weight: 800; color: var(--surface2);
+  letter-spacing: -0.04em; line-height: 1; padding-top: 6px;
+}
+.step-body { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+.step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700; color: var(--ink);
+  letter-spacing: -0.025em; margin-bottom: 10px; line-height: 1.2;
+}
+.step-desc { font-size: 14px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+.step-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px; background: var(--forest-t);
+  border: 1px solid rgba(26,74,46,0.14); border-radius: 6px;
+  padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(--forest);
+}
+.step-visual {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 22px; box-shadow: var(--sh-xs);
+}
 
 /* QR visual */
-.qr-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;}
-.qr-frame{width:100px;height:100px;background:var(--off);border:1px solid var(--border2);border-radius:14px;display:flex;align-items:center;justify-content:center;position:relative;}
-.qr-corner{position:absolute;width:16px;height:16px;border-color:var(--ink);border-style:solid;border-width:0;}
-.qr-corner.tl{top:9px;left:9px;border-top-width:2px;border-left-width:2px;border-radius:2px 0 0 0;}
-.qr-corner.tr{top:9px;right:9px;border-top-width:2px;border-right-width:2px;border-radius:0 2px 0 0;}
-.qr-corner.bl{bottom:9px;left:9px;border-bottom-width:2px;border-left-width:2px;border-radius:0 0 0 2px;}
-.qr-corner.br{bottom:9px;right:9px;border-bottom-width:2px;border-right-width:2px;border-radius:0 0 2px 0;}
-.qr-inner{display:grid;grid-template-columns:repeat(5,7px);grid-template-rows:repeat(5,7px);gap:2px;}
-.qr-b{background:var(--ink);border-radius:1px;}
-.qr-w{background:transparent;}
-.qr-chip{display:inline-flex;align-items:center;gap:6px;background:var(--forest-light);border:1px solid rgba(26,74,46,0.15);border-radius:6px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--forest);}
-.qr-lbl{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);text-align:center;line-height:1.5;}
-
-/* LAW — redesigned for coherence */
-.law-section{background:var(--forest);padding:120px 56px;}
-.law-inner{max-width:1200px;margin:0 auto;}
-.law-header{text-align:center;margin-bottom:64px;}
-.law-header .section-tag{justify-content:center;color:rgba(255,255,255,0.5);}
-.law-header .section-tag::before{background:rgba(255,255,255,0.3);}
-.law-header .section-title{color:white;margin:0 auto 16px;}
-.law-header .section-sub{color:rgba(255,255,255,0.55);margin:0 auto;max-width:560px;}
-.law-cards-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;}
-.law-card{background:rgba(255,255,255,0.06);padding:40px 36px;position:relative;transition:background 0.3s;}
-.law-card:hover{background:rgba(255,255,255,0.09);}
-.law-card-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:20px;}
-.law-card-num-big{font-family:'Playfair Display',serif;font-size:56px;font-weight:800;color:white;letter-spacing:-0.04em;line-height:1;margin-bottom:8px;}
-.law-card-num-big em{font-size:28px;font-weight:400;font-style:normal;color:rgba(255,255,255,0.5);}
-.law-card-title{font-size:17px;font-weight:600;color:white;margin-bottom:10px;letter-spacing:-0.01em;}
-.law-card-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65;}
-.law-ref{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.5);font-family:'DM Mono',monospace;}
-
-/* CONTACT — enriched */
-.contact-section{background:var(--off);}
-.contact-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
-.contact-left{}
-.contact-form{background:white;border:1px solid var(--border);border-radius:24px;padding:40px;box-shadow:var(--shadow-md);}
-.form-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.03em;margin-bottom:8px;}
-.form-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6;}
-.form-tabs{display:flex;gap:4px;background:var(--off2);border-radius:10px;padding:4px;margin-bottom:24px;}
-.form-tab{flex:1;padding:9px;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--muted);}
-.form-tab.active{background:white;color:var(--ink);box-shadow:var(--shadow-sm);}
-.form-field{margin-bottom:14px;}
-.field-label{font-size:12px;font-weight:600;color:var(--ink);letter-spacing:0.03em;margin-bottom:6px;display:block;}
-.field-input{width:100%;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border-color 0.2s;resize:none;}
-.field-input:focus{border-color:var(--forest);}
-.field-input::placeholder{color:var(--sub);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.btn-submit{width:100%;background:var(--forest);color:white;border:none;border-radius:10px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
-.btn-submit:hover{background:var(--forest2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,74,46,0.25);}
-.form-note{font-size:12px;color:var(--sub);text-align:center;margin-top:12px;}
-
-/* contact left enriched */
-.contact-info-cards{display:flex;flex-direction:column;gap:16px;margin-top:40px;}
-.contact-info-card{background:white;border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow-sm);}
-.cic-icon{width:40px;height:40px;background:var(--forest-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
-.cic-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px;}
-.cic-desc{font-size:13px;color:var(--muted);line-height:1.6;}
-.cic-value{font-size:14px;font-weight:500;color:var(--forest);margin-top:6px;}
-
-/* FOOTER */
-footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;border-top:1px solid rgba(255,255,255,0.06);}
-.footer-logo-txt{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:white;letter-spacing:-0.03em;margin-bottom:8px;}
-.footer-tagline{font-size:13px;color:rgba(255,255,255,0.3);line-height:1.6;max-width:240px;}
-.footer-col-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:16px;}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.footer-links a{font-size:14px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s;}
-.footer-links a:hover{color:rgba(255,255,255,0.8);}
-.footer-bottom{grid-column:1/-1;border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;justify-content:space-between;}
-.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
-
-/* SCROLL REVEAL */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
-.reveal.in{opacity:1;transform:translateY(0);}
-.d1{transition-delay:0.08s;}.d2{transition-delay:0.16s;}.d3{transition-delay:0.24s;}.d4{transition-delay:0.32s;}
-
-/* RESPONSIVE */
-@media(max-width:1024px){
-  nav{padding:0 24px;}
-  .nav-links{display:none;}
-  .section,.law-section{padding:80px 24px;}
-  .hero{padding:100px 24px 60px;}
-  .problem-bottom,.law-cards-grid{grid-template-columns:1fr;}
-  .dual-grid{grid-template-columns:1fr;gap:16px;background:transparent;border:none;box-shadow:none;}
-  .dual-card{border-radius:20px;border:1px solid var(--border);}
-  .step-content{grid-template-columns:1fr;}
-  .contact-inner{grid-template-columns:1fr;}
-  footer{grid-template-columns:1fr 1fr;padding:40px 24px;}
-  .phones-row{gap:12px;}
-  .phn{width:170px;}
-  .phn.main{width:184px;}
+.qr-area {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 20px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 12px;
 }
-@media(max-width:768px){
-  .phones-row{flex-wrap:wrap;justify-content:center;}
-  .phn,.phn.main{width:200px;}
+.qr-box {
+  width: 96px; height: 96px; background: var(--bg);
+  border: 1px solid var(--border2); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; position: relative;
 }
-@media(max-width:600px){
-  .hero-title{font-size:40px;}
-  .hero-ctas{flex-direction:column;align-items:stretch;}
-  .btn-hero-store,.btn-hero-assoc{justify-content:center;}
-  .hero-proof{flex-direction:column;gap:20px;}
-  .proof-sep{width:40px;height:1px;}
-  .form-row{grid-template-columns:1fr;}
-  footer{grid-template-columns:1fr;}
+.qrc { position: absolute; width: 15px; height: 15px; border-color: var(--ink); border-style: solid; border-width: 0; }
+.qrc.tl { top:8px; left:8px;  border-top-width:2px; border-left-width:2px;  border-radius:2px 0 0 0; }
+.qrc.tr { top:8px; right:8px; border-top-width:2px; border-right-width:2px; border-radius:0 2px 0 0; }
+.qrc.bl { bottom:8px; left:8px;  border-bottom-width:2px; border-left-width:2px;  border-radius:0 0 0 2px; }
+.qrc.br { bottom:8px; right:8px; border-bottom-width:2px; border-right-width:2px; border-radius:0 0 2px 0; }
+.qr-cells { display: grid; grid-template-columns: repeat(5,6px); grid-template-rows: repeat(5,6px); gap: 2px; }
+.qb { background: var(--ink); border-radius: 1px; }
+.qw { background: transparent; }
+.qr-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--forest-t); border: 1px solid rgba(26,74,46,0.14);
+  border-radius: 5px; padding: 4px 10px;
+  font-size: 10px; font-weight: 600; color: var(--forest);
+}
+.qr-lbl { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); text-align: center; line-height: 1.5; }
+
+/* ─────────────────────────────────────────────
+   APP MOCKUPS
+───────────────────────────────────────────── */
+.phones-sec { background: var(--surface); }
+.phones-head { text-align: center; max-width: 480px; margin: 0 auto 72px; }
+
+.phones-row {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+}
+.ph-wrap {
+  width: 204px; border-radius: 34px; overflow: hidden;
+  border: 1px solid var(--border); box-shadow: var(--sh-lg); flex-shrink: 0;
+}
+.ph-wrap.center {
+  width: 218px;
+  box-shadow: 0 28px 60px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.06);
+}
+.ph { padding: 18px 13px 16px; }
+.ph-dark  { background: #090910; }
+.ph-light { background: #f6f7f8; }
+
+/* — dark phone — */
+.phd-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 13px; }
+.phd-logo { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 800; color: white; letter-spacing: -0.02em; }
+.phd-badge { display: flex; align-items: center; gap: 4px; background: rgba(26,74,46,0.25); border: 0.5px solid rgba(26,74,46,0.45); border-radius: 20px; padding: 3px 7px; }
+.phd-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; animation: blink 2.2s infinite; }
+.phd-txt { font-size: 7px; color: #4ade80; font-weight: 600; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+.phd-kpi { background: rgba(255,255,255,0.035); border: 0.5px solid rgba(255,255,255,0.06); border-radius: 9px; padding: 11px; margin-bottom: 9px; }
+.phd-kpi-l { font-size: 7px; color: rgba(255,255,255,0.22); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 7px; }
+.phd-kpi-row { display: flex; gap: 18px; }
+.phd-kpi-n { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 800; color: white; letter-spacing: -0.03em; line-height: 1; }
+.phd-kpi-s { font-size: 7px; color: rgba(255,255,255,0.28); margin-top: 2px; }
+
+.phd-sl { font-size: 7px; color: rgba(255,255,255,0.18); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 5px; }
+.phd-lot { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.025); border: 0.5px solid rgba(255,255,255,0.05); border-radius: 6px; padding: 7px 8px; margin-bottom: 4px; }
+.phd-ln { font-size: 8px; font-weight: 600; color: rgba(255,255,255,0.75); }
+.phd-lw { font-size: 7px; color: rgba(255,255,255,0.28); margin-top: 1px; }
+.ph-b-g { background: rgba(74,222,128,0.1);  color: #4ade80;  font-size: 7px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+.ph-b-y { background: rgba(251,191,36,0.1);  color: #fbbf24;  font-size: 7px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+
+.phd-cta { background: white; border-radius: 7px; padding: 9px; text-align: center; font-family: 'Playfair Display', serif; font-size: 8px; font-weight: 700; color: #090910; margin-top: 9px; }
+
+/* — form phone — */
+.phf-back { display: flex; align-items: center; gap: 7px; margin-bottom: 13px; }
+.phf-back-ico { width: 20px; height: 20px; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.phf-title { font-family: 'Playfair Display', serif; font-size: 11px; font-weight: 800; color: white; letter-spacing: -0.02em; }
+.phf-lbl { font-size: 7px; color: rgba(255,255,255,0.22); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 4px; }
+.phf-inp { background: rgba(255,255,255,0.035); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 6px; padding: 7px 9px; font-size: 8px; color: rgba(255,255,255,0.45); margin-bottom: 7px; }
+.phf-inp.hi { border-color: rgba(26,74,46,0.55); color: rgba(255,255,255,0.82); }
+.phf-g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 7px; }
+.phf-note { background: rgba(26,74,46,0.1); border: 0.5px solid rgba(26,74,46,0.18); border-radius: 6px; padding: 7px 8px; font-size: 7px; color: rgba(74,222,128,0.65); line-height: 1.5; margin-bottom: 7px; }
+.phf-cta { background: var(--forest); border-radius: 7px; padding: 9px; text-align: center; font-family: 'Playfair Display', serif; font-size: 8px; font-weight: 700; color: white; }
+
+/* — light phone — */
+.phl-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; }
+.phl-logo { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
+.phl-av { width: 22px; height: 22px; border-radius: 50%; background: var(--forest-t); display: flex; align-items: center; justify-content: center; font-size: 7px; font-weight: 700; color: var(--forest); }
+.phl-alert { background: rgba(184,50,50,0.05); border: 0.5px solid rgba(184,50,50,0.14); border-radius: 8px; padding: 8px 9px; margin-bottom: 8px; }
+.phl-at { font-size: 8px; font-weight: 700; color: var(--red); margin-bottom: 2px; }
+.phl-as { font-size: 7px; color: rgba(184,50,50,0.55); line-height: 1.4; }
+.phl-sl { font-size: 7px; color: rgba(14,14,14,0.32); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 6px; }
+.phl-card { background: white; border: 0.5px solid rgba(14,14,14,0.07); border-radius: 10px; overflow: hidden; margin-bottom: 6px; box-shadow: 0 1px 3px rgba(14,14,14,0.04); }
+.phl-ch { padding: 8px 9px 6px; border-bottom: 0.5px solid rgba(14,14,14,0.05); display: flex; justify-content: space-between; align-items: flex-start; }
+.phl-sn { font-size: 8px; font-weight: 700; color: var(--ink); }
+.phl-ss { font-size: 7px; color: rgba(14,14,14,0.38); margin-top: 1px; }
+.phl-cd { font-size: 8px; font-weight: 700; color: var(--red); font-family: 'DM Mono', monospace; }
+.phl-cb { padding: 9px; display: grid; grid-template-columns: 1fr 1fr 1fr; text-align: center; }
+.phl-svl { font-size: 6px; color: rgba(14,14,14,0.32); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 3px; }
+.phl-svn { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; line-height: 1; }
+.phl-svu { font-size: 7px; color: rgba(14,14,14,0.36); font-weight: 400; }
+.phl-cta { background: var(--ink); border-radius: 7px; padding: 9px; text-align: center; font-family: 'Playfair Display', serif; font-size: 8px; font-weight: 700; color: white; margin-top: 4px; }
+
+/* ─────────────────────────────────────────────
+   LAW
+───────────────────────────────────────────── */
+.law-sec { background: var(--forest); padding: 112px 56px; }
+.law-inner { max-width: 1160px; margin: 0 auto; }
+.law-head { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+.law-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: rgba(255,255,255,0.1);
+  border-radius: 14px; overflow: hidden;
+}
+.law-card {
+  background: rgba(255,255,255,0.05); padding: 40px 36px;
+  transition: background 0.25s var(--ease-out);
+}
+.law-card:hover { background: rgba(255,255,255,0.08); }
+.law-ey { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 16px; }
+.law-big { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 800; color: white; letter-spacing: -0.04em; line-height: 1; margin-bottom: 10px; }
+.law-big em { font-size: 24px; font-weight: 400; font-style: normal; color: rgba(255,255,255,0.4); }
+.law-title { font-size: 16px; font-weight: 600; color: white; margin-bottom: 10px; letter-spacing: -0.01em; }
+.law-desc  { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+.law-ref   { display: inline-flex; align-items: center; margin-top: 16px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 3px 9px; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4); font-family: 'DM Mono', monospace; }
+
+/* ─────────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────────── */
+.contact-sec { background: var(--bg); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+.contact-left > p { font-size: 16px; color: var(--muted); line-height: 1.7; font-weight: 300; margin-bottom: 40px; }
+.ccards { display: flex; flex-direction: column; gap: 14px; }
+.ccard {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px;
+  transition: border-color 0.2s var(--ease-out), box-shadow 0.2s;
+  text-decoration: none; display: block;
+}
+.ccard:hover { border-color: var(--border2); box-shadow: var(--sh-sm); }
+.ccard:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+.cc-icon { width: 36px; height: 36px; background: var(--forest-t); border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.cc-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.cc-desc  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.cc-val   { font-size: 13px; font-weight: 500; color: var(--forest); margin-top: 6px; }
+
+/* Form */
+.cform {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 36px; box-shadow: var(--sh-sm);
+}
+.cf-h   { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 6px; }
+.cf-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+
+.cf-tabs { display: flex; gap: 3px; background: var(--border); border-radius: 9px; padding: 3px; margin-bottom: 22px; role: tablist; }
+.cf-tab {
+  flex: 1; padding: 8px; border: none; border-radius: 7px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  cursor: pointer; background: transparent; color: var(--sub);
+  transition: background 0.2s, color 0.2s, transform 0.15s var(--ease-out);
+}
+.cf-tab[aria-selected="true"] { background: white; color: var(--ink); box-shadow: var(--sh-xs); }
+.cf-tab:active { transform: scale(0.97); }
+.cf-tab:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cf-field { margin-bottom: 12px; }
+
+.cf-label {
+  font-size: 11px; font-weight: 600; color: var(--ink);
+  letter-spacing: 0.03em; margin-bottom: 5px; display: block;
+}
+.cf-input {
+  width: 100%; background: white; border: 1.5px solid var(--border);
+  border-radius: 9px; padding: 11px 13px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink);
+  outline: none; resize: none;
+  transition: border-color 0.2s var(--ease-out), box-shadow 0.2s;
+}
+.cf-input:focus {
+  border-color: var(--forest);
+  box-shadow: 0 0 0 3px rgba(26,74,46,0.08);
+}
+.cf-input::placeholder { color: var(--sub); }
+
+.cf-submit {
+  width: 100%; background: var(--forest); color: white;
+  border: none; border-radius: 9px; padding: 14px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; margin-top: 6px;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: background 0.2s, transform 0.16s var(--ease-out), box-shadow 0.2s;
+}
+.cf-submit:hover  { background: var(--forest2); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(26,74,46,0.22); }
+.cf-submit:active { transform: scale(0.97) translateY(0); }
+.cf-submit:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+
+.cf-note { font-size: 11px; color: var(--sub); text-align: center; margin-top: 10px; }
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+footer {
+  background: var(--ink2); padding: 52px 56px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.ft-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 800; color: white; letter-spacing: -0.025em; margin-bottom: 8px; }
+.ft-tag  { font-size: 13px; color: rgba(255,255,255,0.28); line-height: 1.6; max-width: 220px; }
+.ft-head { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 14px; }
+.ft-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.ft-list a { font-size: 13px; color: rgba(255,255,255,0.38); text-decoration: none; transition: color 0.2s; border-radius: 3px; }
+.ft-list a:hover { color: rgba(255,255,255,0.75); }
+.ft-list a:focus-visible { outline: 2px solid rgba(255,255,255,0.4); outline-offset: 3px; }
+.ft-bot { grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; display: flex; justify-content: space-between; }
+.ft-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
+
+/* ─────────────────────────────────────────────
+   SCROLL REVEAL — staggered
+───────────────────────────────────────────── */
+.rv {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+  will-change: transform, opacity;
+}
+.rv.show {
+  opacity: 1; transform: translateY(0);
+  will-change: auto; /* release after animation */
+}
+
+.rv-d1 { transition-delay: 0.07s; }
+.rv-d2 { transition-delay: 0.14s; }
+.rv-d3 { transition-delay: 0.21s; }
+
+/* Card stagger via nth-child when parent is .show */
+.prob-grid.show > .prob-card:nth-child(1),
+.law-grid.show  > .law-card:nth-child(1)  { transition-delay: 0.04s; }
+.prob-grid.show > .prob-card:nth-child(2),
+.law-grid.show  > .law-card:nth-child(2)  { transition-delay: 0.12s; }
+.prob-grid.show > .prob-card:nth-child(3),
+.law-grid.show  > .law-card:nth-child(3)  { transition-delay: 0.20s; }
+
+.prob-card, .law-card {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out),
+              background 0.25s var(--ease-out);
+  will-change: transform, opacity;
+}
+.prob-card.show, .law-card.show {
+  opacity: 1; transform: translateY(0);
+  will-change: auto;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+@media (max-width: 1040px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .sec, .law-sec { padding: 80px 24px; }
+  .hero { padding: 100px 24px 60px; }
+  .prob-grid, .law-grid { grid-template-columns: 1fr; }
+  .persona-grid { grid-template-columns: 1fr; }
+  .step-body { grid-template-columns: 1fr; gap: 24px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  footer { grid-template-columns: 1fr 1fr; padding: 40px 24px; }
+  .phones-row { gap: 14px; }
+  .ph-wrap { width: 176px; }
+  .ph-wrap.center { width: 192px; }
+}
+@media (max-width: 720px) {
+  .phones-row { flex-wrap: wrap; justify-content: center; }
+  .ph-wrap, .ph-wrap.center { width: 200px; }
+}
+@media (max-width: 560px) {
+  .hero-title { font-size: 40px; }
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .btn-cta-a, .btn-cta-b { justify-content: center; }
+  .hero-stats { flex-direction: column; gap: 18px; }
+  .hstat-sep { width: 36px; height: 1px; }
+  .cf-row { grid-template-columns: 1fr; }
+  footer { grid-template-columns: 1fr; }
+  .marquee-row { padding: 0 24px; }
+}
+
+/* ─────────────────────────────────────────────
+   REDUCED MOTION
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .rv, .prob-card, .law-card { opacity: 1; transform: none; }
+  .hero-flag, .hero-title, .hero-sub, .hero-ctas, .hero-stats {
+    opacity: 1; animation: none;
+  }
 }
 </style>
 </head>
 <body>
 
+<!-- SKIP LINK (a11y) -->
+<a href="#main" class="skip-link">Aller au contenu principal</a>
+
 <!-- NAV -->
-<nav id="nav">
-  <a href="#" class="logo">revalis</a>
-  <ul class="nav-links">
+<nav id="nav" aria-label="Navigation principale">
+  <a href="#" class="logo" aria-label="Revalis — page d'accueil">revalis</a>
+  <ul class="nav-links" role="list">
     <li><a href="#probleme">Le problème</a></li>
     <li><a href="#comment">Comment ça marche</a></li>
     <li><a href="#loi">Cadre légal</a></li>
@@ -320,482 +738,611 @@ footer{background:var(--ink2);padding:56px;display:grid;grid-template-columns:2f
   </ul>
   <div class="nav-right">
     <a href="#contact" class="btn-ghost" onclick="setTab('other')">Se connecter</a>
-    <a href="#contact" class="btn-forest-sm" onclick="setTab('store')">
+    <a href="#contact" class="btn-nav" onclick="setTab('store')">
       Rejoindre le réseau
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" focusable="false">
+        <path d="M2.5 6.5h8M7 3.5l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </a>
   </div>
 </nav>
 
+<!-- MAIN LANDMARK -->
+<main id="main">
+
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-eyebrow">
-    <span class="eyebrow-flag">🇫🇷</span>
-    Produit français — Île-de-France
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="hero-flag" aria-hidden="true">
+    <span>🇫🇷</span>
+    <span class="flag-dot"></span>
+    Produit français
   </div>
-  <h1 class="hero-title">
-    Chaque surplus<br>mérite une<br><span class="green">seconde vie.</span>
+
+  <h1 class="hero-title" id="hero-title">
+    Chaque surplus<br>mérite une<br><span class="hl">seconde vie.</span>
   </h1>
+
   <p class="hero-sub">
-    Revalis connecte les <strong>supermarchés</strong> et les <strong>associations humanitaires</strong> pour transformer les invendus alimentaires en dons utiles — en quelques secondes, sans paperasse.
+    Revalis connecte les <strong>supermarchés</strong> et les <strong>associations humanitaires</strong> pour transformer les invendus alimentaires en dons utiles, en quelques secondes, sans paperasse.
   </p>
+
   <div class="hero-ctas">
-    <a href="#contact" class="btn-hero-store" onclick="setTab('store')">
+    <a href="#contact" class="btn-cta-a" onclick="setTab('store')">
       Je suis un supermarché
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" focusable="false">
+        <path d="M3 7.5h9M8.5 4l3.5 3.5L8.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </a>
-    <a href="#contact" class="btn-hero-assoc" onclick="setTab('assoc')">
+    <a href="#contact" class="btn-cta-b" onclick="setTab('assoc')">
       Je suis une association
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" focusable="false">
+        <path d="M3 7.5h9M8.5 4l3.5 3.5L8.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </a>
   </div>
-  <div class="hero-proof">
-    <div class="proof-item">
-      <div class="proof-num">20<span>s</span></div>
-      <div class="proof-label">Pour déclarer un lot</div>
+
+  <div class="hero-stats" role="list" aria-label="Chiffres clés">
+    <div class="hstat" role="listitem">
+      <div class="hstat-n">20<em>s</em></div>
+      <div class="hstat-l">Pour déclarer un lot</div>
     </div>
-    <div class="proof-sep"></div>
-    <div class="proof-item">
-      <div class="proof-num">60<span>%</span></div>
-      <div class="proof-label">Réduction d'impôt</div>
+    <div class="hstat-sep" aria-hidden="true"></div>
+    <div class="hstat" role="listitem">
+      <div class="hstat-n">60<em>%</em></div>
+      <div class="hstat-l">Réduction d'impôt</div>
     </div>
-    <div class="proof-sep"></div>
-    <div class="proof-item">
-      <div class="proof-num">0<span>€</span></div>
-      <div class="proof-label">Pour les associations</div>
+    <div class="hstat-sep" aria-hidden="true"></div>
+    <div class="hstat" role="listitem">
+      <div class="hstat-n">0<em>€</em></div>
+      <div class="hstat-l">Pour les associations</div>
     </div>
-    <div class="proof-sep"></div>
-    <div class="proof-item">
-      <div class="proof-num">Loi<span> Garot</span></div>
-      <div class="proof-label">Cadre légal solide</div>
+    <div class="hstat-sep" aria-hidden="true"></div>
+    <div class="hstat" role="listitem">
+      <div class="hstat-n">Loi <em>Garot</em></div>
+      <div class="hstat-l">Cadre légal solide</div>
     </div>
   </div>
 </section>
 
-<!-- LOGOS -->
-<div class="logos-band">
-  <span class="logos-label">Conçu pour</span>
-  <div class="logos-sep-line"></div>
-  <div class="logos-scroll">
-    <div class="logos-track">
-      <span class="logo-item">Carrefour</span>
-      <span class="logo-item">Monoprix</span>
-      <span class="logo-item">E.Leclerc</span>
-      <span class="logo-item">Intermarché</span>
-      <span class="logo-item">Franprix</span>
-      <span class="logo-item">Casino</span>
-      <span class="logo-item">Lidl</span>
-      <span class="logo-item">Aldi</span>
-      <span class="logo-item">Super U</span>
-      <span class="logo-item">Restos du Cœur</span>
-      <span class="logo-item">Banque Alimentaire</span>
-      <span class="logo-item">Secours Populaire</span>
-      <span class="logo-item">Croix-Rouge Française</span>
-      <span class="logo-item">Épiceries Solidaires</span>
-      <span class="logo-item">Carrefour</span>
-      <span class="logo-item">Monoprix</span>
-      <span class="logo-item">E.Leclerc</span>
-      <span class="logo-item">Intermarché</span>
-      <span class="logo-item">Franprix</span>
-      <span class="logo-item">Casino</span>
-      <span class="logo-item">Lidl</span>
-      <span class="logo-item">Aldi</span>
-      <span class="logo-item">Super U</span>
-      <span class="logo-item">Restos du Cœur</span>
-      <span class="logo-item">Banque Alimentaire</span>
-      <span class="logo-item">Secours Populaire</span>
-      <span class="logo-item">Croix-Rouge Française</span>
-      <span class="logo-item">Épiceries Solidaires</span>
+<!-- MARQUEE -->
+<div class="marquee-bar" aria-hidden="true">
+  <div class="marquee-row">
+    <span class="marquee-lbl">Conçu pour</span>
+    <span class="marquee-sep"></span>
+    <div class="marquee-scroll">
+      <div class="marquee-track">
+        <span class="marquee-item">Carrefour</span><span class="marquee-item">Monoprix</span><span class="marquee-item">E.Leclerc</span><span class="marquee-item">Intermarché</span><span class="marquee-item">Franprix</span><span class="marquee-item">Casino</span><span class="marquee-item">Lidl</span><span class="marquee-item">Aldi</span><span class="marquee-item">Super U</span><span class="marquee-item">Restos du Cœur</span><span class="marquee-item">Banque Alimentaire</span><span class="marquee-item">Secours Populaire</span><span class="marquee-item">Croix-Rouge Française</span><span class="marquee-item">Épiceries Solidaires</span>
+        <span class="marquee-item">Carrefour</span><span class="marquee-item">Monoprix</span><span class="marquee-item">E.Leclerc</span><span class="marquee-item">Intermarché</span><span class="marquee-item">Franprix</span><span class="marquee-item">Casino</span><span class="marquee-item">Lidl</span><span class="marquee-item">Aldi</span><span class="marquee-item">Super U</span><span class="marquee-item">Restos du Cœur</span><span class="marquee-item">Banque Alimentaire</span><span class="marquee-item">Secours Populaire</span><span class="marquee-item">Croix-Rouge Française</span><span class="marquee-item">Épiceries Solidaires</span>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- PROBLEM -->
-<section id="probleme" class="section problem-section">
-  <div class="section-inner">
-    <div class="problem-top reveal">
-      <div class="section-tag">Le problème</div>
-      <h2 class="section-title">Donner peut devenir<br>plus simple que <span class="italic">jeter.</span></h2>
-      <p class="section-sub">Des tonnes de nourriture parfaitement consommable finissent à la poubelle chaque jour en France — non pas par manque de volonté, mais par manque d'outil adapté au rythme du terrain.</p>
-    </div>
-    <div class="problem-bottom">
-      <div class="prob-card reveal d1">
-        <div class="prob-icon">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#c0392b" stroke-width="1.4"/><path d="M9 6v4.5M9 12.5v.5" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="prob-title">Une friction opérationnelle réelle</div>
-        <div class="prob-desc">Coordonner un don alimentaire en dehors d'un outil dédié mobilise du temps et de l'énergie que les équipes en magasin n'ont tout simplement pas au quotidien.</div>
-        <div class="prob-stat">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#c0392b" stroke-width="1.2"/><path d="M5 3v2.5L6.5 7" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round"/></svg>
+<section id="probleme" class="sec prob-sec" aria-labelledby="prob-title">
+  <div class="sec-inner">
+    <header class="prob-head rv">
+      <h2 class="sec-h2" id="prob-title">Donner peut devenir plus simple que <em>jeter.</em></h2>
+      <p class="sec-p">Des tonnes de nourriture parfaitement consommable finissent à la poubelle chaque jour en France, non pas par manque de volonté, mais par manque d'outil adapté au rythme du terrain.</p>
+    </header>
+    <div class="prob-grid" role="list">
+      <article class="prob-card" role="listitem">
+        <div class="prob-num" aria-hidden="true">01</div>
+        <h3 class="prob-title">Une friction opérationnelle réelle</h3>
+        <p class="prob-desc">Coordonner un don alimentaire sans outil dédié mobilise du temps que les équipes en magasin n'ont pas au quotidien. Le résultat est systématique : les produits sont détruits faute de solution immédiate.</p>
+        <div class="prob-chip" aria-label="Statistique : 20 minutes de démarches sans outil">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#b83232" stroke-width="1.2"/><path d="M5 3v2.5" stroke="#b83232" stroke-width="1.2" stroke-linecap="round"/></svg>
           20 min de démarches sans outil
         </div>
-      </div>
-      <div class="prob-card reveal d2">
-        <div class="prob-icon">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#c0392b" stroke-width="1.4"/><path d="M9 6v4.5M9 12.5v.5" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="prob-title">Une logistique difficile à synchroniser</div>
-        <div class="prob-desc">Les invendus ont une fenêtre de collecte très courte. Sans coordination en temps réel, les lots disponibles et les associations disponibles ne se trouvent pas au bon moment.</div>
-        <div class="prob-stat">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#c0392b" stroke-width="1.2"/><path d="M5 3v2.5L6.5 7" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </article>
+      <article class="prob-card" role="listitem">
+        <div class="prob-num" aria-hidden="true">02</div>
+        <h3 class="prob-title">Une logistique difficile à synchroniser</h3>
+        <p class="prob-desc">Les invendus ont une fenêtre de collecte très courte. Sans coordination en temps réel entre les disponibilités des magasins et celles des associations, les lots ne se trouvent pas au bon moment.</p>
+        <div class="prob-chip" aria-label="Statistique : fenêtre de collecte souvent inférieure à 2 heures">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#b83232" stroke-width="1.2"/><path d="M5 3v2.5" stroke="#b83232" stroke-width="1.2" stroke-linecap="round"/></svg>
           Fenêtre de collecte souvent &lt; 2h
         </div>
-      </div>
-      <div class="prob-card reveal d3">
-        <div class="prob-icon">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#c0392b" stroke-width="1.4"/><path d="M9 6v4.5M9 12.5v.5" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="prob-title">Zéro traçabilité fiscale</div>
-        <div class="prob-desc">Sans justificatif automatique, les magasins perdent leur droit à la réduction d'impôt de 60% sur la valeur des dons alimentaires — un avantage fiscal pourtant significatif.</div>
-        <div class="prob-stat">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#c0392b" stroke-width="1.2"/><path d="M5 3v2.5L6.5 7" stroke="#c0392b" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </article>
+      <article class="prob-card" role="listitem">
+        <div class="prob-num" aria-hidden="true">03</div>
+        <h3 class="prob-title">Zéro traçabilité fiscale</h3>
+        <p class="prob-desc">Sans justificatif automatique, les magasins perdent leur droit à 60% de réduction d'impôt sur la valeur des dons alimentaires, un avantage fiscal significatif rendu accessible par la loi Coluche.</p>
+        <div class="prob-chip" aria-label="Statistique : 60% de réduction d'impôt perdus">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#b83232" stroke-width="1.2"/><path d="M5 3v2.5" stroke="#b83232" stroke-width="1.2" stroke-linecap="round"/></svg>
           60% de réduction d'impôt perdus
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- DUAL PERSONAS -->
-<section class="section dual-section">
-  <div class="section-inner">
-    <div class="reveal" style="text-align:center;">
-      <div class="section-tag" style="justify-content:center;">Deux utilisateurs</div>
-      <h2 class="section-title" style="text-align:center;">Un outil pensé<br>pour <span class="italic">deux réalités.</span></h2>
-    </div>
-    <div class="dual-grid">
-      <div class="dual-card for-store reveal d1">
-        <div class="dual-tag tag-store">Donateur</div>
-        <div class="dual-persona">Le Chef<br>de Rayon</div>
-        <div class="dual-role">Directeur de supermarché · Paris</div>
-        <div class="dual-needs">
-          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Interface professionnelle — déclaration en quelques secondes</div>
-          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Dashboard RSE — impact concret du magasin, utile pour les rapports annuels</div>
-          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Justificatifs fiscaux automatiques — 60% de réduction d'impôt (loi Coluche)</div>
-          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Conformité loi Garot — sans effort administratif supplémentaire</div>
-        </div>
+<!-- PERSONAS -->
+<section class="sec persona-sec" aria-labelledby="persona-title">
+  <div class="sec-inner">
+    <header class="persona-head rv">
+      <h2 class="sec-h2" id="persona-title">Un outil pensé pour <em>deux réalités.</em></h2>
+    </header>
+    <div class="persona-grid">
+      <div class="persona-card persona-store rv rv-d1">
+        <div class="p-badge p-badge-s">Donateur</div>
+        <h3 class="p-name">Le Chef de Rayon</h3>
+        <p class="p-role">Directeur de supermarché · Paris</p>
+        <ul class="p-list" role="list">
+          <li class="p-item"><div class="p-check" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Interface professionnelle, déclaration en quelques secondes</li>
+          <li class="p-item"><div class="p-check" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Dashboard RSE valorisant l'impact du magasin</li>
+          <li class="p-item"><div class="p-check" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Justificatifs fiscaux automatiques, 60% loi Coluche</li>
+          <li class="p-item"><div class="p-check" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Conformité loi Garot sans effort administratif</li>
+        </ul>
       </div>
-      <div class="dual-card for-assoc reveal d2">
-        <div class="dual-tag tag-assoc">Repreneur</div>
-        <div class="dual-persona">Le Bénévole<br>de Terrain</div>
-        <div class="dual-role">Responsable d'association · Mobile</div>
-        <div class="dual-needs">
-          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>3 données clés en un coup d'œil — volume, distance, heure limite</div>
-          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Alertes géolocalisées en temps réel — les lots les plus proches en priorité</div>
-          <div class="dual-need"><div class="need-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Revalis ne facture jamais les associations humanitaires</div>
-        </div>
+      <div class="persona-card persona-assoc rv rv-d2">
+        <div class="p-badge p-badge-a">Repreneur</div>
+        <h3 class="p-name">Le Bénévole de Terrain</h3>
+        <p class="p-role">Responsable d'association · Mobile</p>
+        <ul class="p-list" role="list">
+          <li class="p-item"><div class="p-check" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>3 données clés en un coup d'oeil : volume, distance, heure limite</li>
+          <li class="p-item"><div class="p-check" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Alertes géolocalisées, zone de collecte configurable</li>
+          <li class="p-item"><div class="p-check" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Revalis ne facture jamais les associations</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
 <!-- HOW -->
-<section id="comment" class="section how-section">
-  <div class="section-inner">
-    <div class="reveal" style="text-align:center;">
-      <div class="section-tag" style="justify-content:center;">Comment ça marche</div>
-      <h2 class="section-title" style="text-align:center;">De la réserve<br>à <span class="italic">l'assiette.</span></h2>
-    </div>
-    <div class="steps-container">
-      <div class="step-row reveal">
-        <div class="step-num-big">01</div>
-        <div class="step-content">
+<section id="comment" class="sec how-sec" aria-labelledby="how-title">
+  <div class="sec-inner">
+    <header class="how-head rv">
+      <h2 class="sec-h2 center" id="how-title">De la réserve à <em>l'assiette.</em></h2>
+    </header>
+    <ol class="steps" aria-label="Étapes du processus">
+      <li class="step rv">
+        <div class="step-n" aria-hidden="true">01</div>
+        <div class="step-body">
           <div>
-            <div class="step-title">Le supermarché déclare un surplus</div>
-            <div class="step-desc">Le chef de rayon ouvre Revalis, sélectionne la catégorie de produit, renseigne le volume et l'heure limite de retrait. L'alerte est prête en quelques secondes.</div>
-            <div class="step-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#1a4a2e" stroke-width="1.2"/><path d="M6 3.5V6l2 1.5" stroke="#1a4a2e" stroke-width="1.2" stroke-linecap="round"/></svg>Moins de 20 secondes</div>
-          </div>
-          <div class="step-visual">
-            <div style="font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Interface donateur</div>
-            <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;color:var(--ink);">Fruits & légumes disqualifiés</div><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="var(--sub)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div style="background:var(--off);border:1.5px solid var(--forest);border-radius:10px;padding:12px 14px;"><div style="font-size:10px;color:var(--forest);font-weight:600;margin-bottom:2px;">Volume</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);">12 kg</div></div>
-              <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="font-size:10px;color:var(--sub);font-weight:600;margin-bottom:2px;">Limite</div><div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);">18:30</div></div>
+            <h3 class="step-title">Le supermarché déclare un surplus</h3>
+            <p class="step-desc">Le chef de rayon ouvre Revalis, sélectionne la catégorie de produit, renseigne le volume et l'heure limite de retrait. L'alerte est prête en quelques secondes.</p>
+            <div class="step-pill" aria-label="Temps estimé : moins de 20 secondes">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#1a4a2e" stroke-width="1.1"/><path d="M5 3v2.3L6.3 6.5" stroke="#1a4a2e" stroke-width="1.1" stroke-linecap="round"/></svg>
+              Moins de 20 secondes
             </div>
           </div>
-        </div>
-      </div>
-      <div class="step-row reveal d1">
-        <div class="step-num-big">02</div>
-        <div class="step-content">
-          <div>
-            <div class="step-title">Les associations reçoivent l'alerte</div>
-            <div class="step-desc">Notification push envoyée instantanément aux associations actives à proximité. Chaque association définit sa propre zone de collecte. Volume, distance, heure limite — tout est visible en un coup d'œil.</div>
-            <div class="step-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#1a4a2e" stroke-width="1.2"/><path d="M6 3.5V6l2 1.5" stroke="#1a4a2e" stroke-width="1.2" stroke-linecap="round"/></svg>Notification instantanée</div>
-          </div>
-          <div class="step-visual">
-            <div style="font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Interface association</div>
-            <div style="background:rgba(192,57,43,0.05);border:1px solid rgba(192,57,43,0.12);border-radius:10px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:13px;font-weight:700;color:#c0392b;margin-bottom:2px;">Don disponible à 380 m</div><div style="font-size:12px;color:rgba(192,57,43,0.6);">Collecte avant 18h30</div></div>
-            <div style="display:flex;gap:16px;background:var(--off);border:1px solid var(--border);border-radius:10px;padding:14px;">
-              <div><div style="font-size:10px;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">Volume</div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--ink);">12<span style="font-size:13px;color:var(--muted);font-weight:400;"> kg</span></div></div>
-              <div><div style="font-size:10px;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">Distance</div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--ink);">380<span style="font-size:13px;color:var(--muted);font-weight:400;"> m</span></div></div>
-              <div><div style="font-size:10px;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">Limite</div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#c0392b;">18:30</div></div>
+          <div class="step-visual" aria-label="Aperçu de l'interface donateur" role="img">
+            <div style="font-size:10px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:12px;">Interface donateur</div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:11px 13px;display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+              <span style="font-size:13px;font-weight:500;color:var(--ink);">Fruits &amp; légumes disqualifiés</span>
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2.5 4.5l4 4 4-4" stroke="#8c8c8c" stroke-width="1.4" stroke-linecap="round"/></svg>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="step-row reveal d2">
-        <div class="step-num-big">03</div>
-        <div class="step-content">
-          <div>
-            <div class="step-title">Collecte & validation par QR Code</div>
-            <div class="step-desc">Le bénévole se rend sur place et scanne le QR Code affiché dans l'application. Le transfert est sécurisé et tracé, le justificatif fiscal est généré automatiquement pour le supermarché.</div>
-            <div class="step-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Justificatif fiscal automatique</div>
-          </div>
-          <div class="step-visual qr-visual">
-            <div class="qr-frame">
-              <div class="qr-corner tl"></div><div class="qr-corner tr"></div>
-              <div class="qr-corner bl"></div><div class="qr-corner br"></div>
-              <div class="qr-inner">
-                <div class="qr-b"></div><div class="qr-b"></div><div class="qr-w"></div><div class="qr-b"></div><div class="qr-b"></div>
-                <div class="qr-b"></div><div class="qr-w"></div><div class="qr-b"></div><div class="qr-w"></div><div class="qr-b"></div>
-                <div class="qr-w"></div><div class="qr-b"></div><div class="qr-w"></div><div class="qr-b"></div><div class="qr-w"></div>
-                <div class="qr-b"></div><div class="qr-w"></div><div class="qr-b"></div><div class="qr-w"></div><div class="qr-b"></div>
-                <div class="qr-b"></div><div class="qr-b"></div><div class="qr-w"></div><div class="qr-b"></div><div class="qr-b"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+              <div style="background:var(--bg);border:1.5px solid var(--forest);border-radius:9px;padding:11px 13px;">
+                <div style="font-size:9px;color:var(--forest);font-weight:600;margin-bottom:3px;">Volume</div>
+                <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);">12 kg</div>
+              </div>
+              <div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:11px 13px;">
+                <div style="font-size:9px;color:var(--sub);font-weight:600;margin-bottom:3px;">Limite</div>
+                <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);">18:30</div>
               </div>
             </div>
-            <div class="qr-chip"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Transfert validé · LOT-REV-2025</div>
+          </div>
+        </div>
+      </li>
+
+      <li class="step rv">
+        <div class="step-n" aria-hidden="true">02</div>
+        <div class="step-body">
+          <div>
+            <h3 class="step-title">Les associations reçoivent l'alerte</h3>
+            <p class="step-desc">Notification push envoyée instantanément aux associations actives à proximité. Chaque association définit sa propre zone de collecte. Volume, distance, heure limite : tout est visible en un coup d'oeil.</p>
+            <div class="step-pill" aria-label="Délai : notification instantanée">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#1a4a2e" stroke-width="1.1"/><path d="M5 3v2.3L6.3 6.5" stroke="#1a4a2e" stroke-width="1.1" stroke-linecap="round"/></svg>
+              Notification instantanée
+            </div>
+          </div>
+          <div class="step-visual" aria-label="Aperçu de l'interface association" role="img">
+            <div style="font-size:10px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:12px;">Interface association</div>
+            <div style="background:rgba(184,50,50,0.04);border:1px solid rgba(184,50,50,0.11);border-radius:9px;padding:11px 13px;margin-bottom:7px;">
+              <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:2px;">Don disponible à 380 m</div>
+              <div style="font-size:12px;color:rgba(184,50,50,0.55);">Collecte avant 18h30</div>
+            </div>
+            <div style="display:flex;gap:14px;background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:13px;">
+              <div><div style="font-size:9px;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">Volume</div><div style="font-family:'Playfair Display',serif;font-size:21px;font-weight:800;color:var(--ink);">12<span style="font-size:12px;color:var(--muted);font-weight:400;"> kg</span></div></div>
+              <div><div style="font-size:9px;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">Distance</div><div style="font-family:'Playfair Display',serif;font-size:21px;font-weight:800;color:var(--ink);">380<span style="font-size:12px;color:var(--muted);font-weight:400;"> m</span></div></div>
+              <div><div style="font-size:9px;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">Limite</div><div style="font-family:'Playfair Display',serif;font-size:21px;font-weight:800;color:var(--red);">18:30</div></div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="step rv">
+        <div class="step-n" aria-hidden="true">03</div>
+        <div class="step-body">
+          <div>
+            <h3 class="step-title">Collecte et validation par QR Code</h3>
+            <p class="step-desc">Le bénévole se rend sur place et scanne le QR Code affiché dans l'application. Le transfert est sécurisé et tracé. Le justificatif fiscal est généré automatiquement pour le supermarché.</p>
+            <div class="step-pill" aria-label="Avantage : justificatif fiscal automatique">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Justificatif fiscal automatique
+            </div>
+          </div>
+          <div class="qr-area" role="img" aria-label="QR Code de validation du transfert">
+            <div class="qr-box">
+              <div class="qrc tl"></div><div class="qrc tr"></div>
+              <div class="qrc bl"></div><div class="qrc br"></div>
+              <div class="qr-cells" aria-hidden="true">
+                <div class="qb"></div><div class="qb"></div><div class="qw"></div><div class="qb"></div><div class="qb"></div>
+                <div class="qb"></div><div class="qw"></div><div class="qb"></div><div class="qw"></div><div class="qb"></div>
+                <div class="qw"></div><div class="qb"></div><div class="qw"></div><div class="qb"></div><div class="qw"></div>
+                <div class="qb"></div><div class="qw"></div><div class="qb"></div><div class="qw"></div><div class="qb"></div>
+                <div class="qb"></div><div class="qb"></div><div class="qw"></div><div class="qb"></div><div class="qb"></div>
+              </div>
+            </div>
+            <div class="qr-pill">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true"><path d="M1.5 5.5l3 3 5-5" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Transfert validé · LOT-REV-2025
+            </div>
             <div class="qr-lbl">Présenté sur place par le bénévole</div>
           </div>
         </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- PHONES -->
+<section class="sec phones-sec" aria-labelledby="phones-title">
+  <div class="sec-inner">
+    <header class="phones-head rv">
+      <h2 class="sec-h2 center" id="phones-title">Simple comme <em>elle doit l'être.</em></h2>
+      <p class="sec-p center">Deux interfaces pensées pour deux contextes radicalement différents. L'une pour le rush du magasin, l'autre pour la route.</p>
+    </header>
+    <div class="phones-row" role="list" aria-label="Aperçus de l'application mobile">
+      <!-- Phone 1: Dashboard -->
+      <div class="ph-wrap rv rv-d1" role="listitem" aria-label="Interface tableau de bord donateur">
+        <div class="ph ph-dark">
+          <div class="phd-nav">
+            <div class="phd-logo">revalis</div>
+            <div class="phd-badge" aria-label="Réseau actif"><div class="phd-dot"></div><span class="phd-txt">Actif</span></div>
+          </div>
+          <div class="phd-kpi">
+            <div class="phd-kpi-l">Impact ce mois</div>
+            <div class="phd-kpi-row">
+              <div><div class="phd-kpi-n">480 kg</div><div class="phd-kpi-s">Redistribués</div></div>
+              <div><div class="phd-kpi-n">5</div><div class="phd-kpi-s">Associations</div></div>
+            </div>
+          </div>
+          <div class="phd-sl">Lots récents</div>
+          <div class="phd-lot"><div><div class="phd-ln">Produits laitiers DLC</div><div class="phd-lw">8 kg · il y a 2h</div></div><span class="ph-b-g">Collecté</span></div>
+          <div class="phd-lot"><div><div class="phd-ln">Fruits hors calibre</div><div class="phd-lw">12 kg · il y a 4h</div></div><span class="ph-b-y">En cours</span></div>
+          <div class="phd-lot"><div><div class="phd-ln">Épicerie emballages</div><div class="phd-lw">6 kg · hier</div></div><span class="ph-b-g">Collecté</span></div>
+          <div class="phd-cta">+ Déclarer un surplus</div>
+        </div>
+      </div>
+
+      <!-- Phone 2: Form -->
+      <div class="ph-wrap center rv" role="listitem" aria-label="Interface déclaration de surplus">
+        <div class="ph ph-dark">
+          <div class="phf-back">
+            <div class="phf-back-ico" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M5 1.5L2.5 4 5 6.5" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="phf-title">Nouveau surplus</div>
+          </div>
+          <div class="phf-lbl">Catégorie</div>
+          <div class="phf-inp hi">Fruits et légumes disqualifiés</div>
+          <div class="phf-lbl">Description</div>
+          <div class="phf-inp">Pommes, carottes difformes...</div>
+          <div class="phf-g2">
+            <div><div class="phf-lbl">Volume (kg)</div><div class="phf-inp hi" style="font-family:'Playfair Display',serif;font-size:14px;font-weight:800;color:white;">12</div></div>
+            <div><div class="phf-lbl">Limite</div><div class="phf-inp hi" style="font-family:'Playfair Display',serif;font-size:14px;font-weight:800;color:white;">18:30</div></div>
+          </div>
+          <div class="phf-note">Les associations de votre zone seront alertées instantanément.</div>
+          <div class="phf-cta">Envoyer l'alerte</div>
+        </div>
+      </div>
+
+      <!-- Phone 3: Association feed -->
+      <div class="ph-wrap rv rv-d1" role="listitem" aria-label="Interface feed association">
+        <div class="ph ph-light">
+          <div class="phl-nav">
+            <div class="phl-logo">revalis</div>
+            <div class="phl-av" aria-label="Profil utilisateur">CJ</div>
+          </div>
+          <div class="phl-alert" role="alert">
+            <div class="phl-at">Don disponible à 380 m</div>
+            <div class="phl-as">Collecte avant 18h30</div>
+          </div>
+          <div class="phl-sl">Disponible maintenant</div>
+          <div class="phl-card">
+            <div class="phl-ch">
+              <div><div class="phl-sn">Monoprix République</div><div class="phl-ss">Bd du Temple · 380 m</div></div>
+              <div class="phl-cd">18:30</div>
+            </div>
+            <div class="phl-cb">
+              <div><div class="phl-svl">Volume</div><div class="phl-svn">12<span class="phl-svu"> kg</span></div></div>
+              <div><div class="phl-svl">Distance</div><div class="phl-svn">380<span class="phl-svu"> m</span></div></div>
+              <div><div class="phl-svl">Colis</div><div class="phl-svn">3</div></div>
+            </div>
+          </div>
+          <div class="phl-cta">Prendre en charge</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- APP PREVIEW -->
-<section class="section app-section">
-  <div class="section-inner">
-    <div class="app-header reveal">
-      <div class="section-tag" style="justify-content:center;">L'application</div>
-      <h2 class="section-title" style="text-align:center;margin:0 auto 12px;">Simple comme<br><span class="italic">elle doit l'être.</span></h2>
-      <p style="font-size:16px;color:var(--muted);max-width:440px;margin:0 auto;font-weight:300;line-height:1.7;">Deux interfaces pensées pour deux contextes radicalement différents. L'une pour le rush du magasin, l'autre pour la route.</p>
-    </div>
-    <div class="phones-row">
-      <div class="phn reveal d1">
-        <div class="phn-inner phn-dark">
-          <div class="phn-dark-nav">
-            <div class="phn-brand-w">revalis</div>
-            <div class="phn-active"><div class="phn-active-dot"></div><span class="phn-active-txt">Actif</span></div>
-          </div>
-          <div class="phn-impact-box">
-            <div class="phn-impact-lbl">Impact ce mois</div>
-            <div class="phn-impact-row">
-              <div><div class="phn-imp-n">480 kg</div><div class="phn-imp-l">Redistribués</div></div>
-              <div><div class="phn-imp-n">5</div><div class="phn-imp-l">Associations</div></div>
-            </div>
-          </div>
-          <div class="phn-list-lbl">Lots récents</div>
-          <div class="phn-lot"><div><div class="phn-lot-n">Produits laitiers DLC</div><div class="phn-lot-w">8 kg · il y a 2h</div></div><div class="phn-badge bg">Collecté</div></div>
-          <div class="phn-lot"><div><div class="phn-lot-n">Fruits hors calibre</div><div class="phn-lot-w">12 kg · il y a 4h</div></div><div class="phn-badge by">En cours</div></div>
-          <div class="phn-lot"><div><div class="phn-lot-n">Épicerie emballages</div><div class="phn-lot-w">6 kg · hier</div></div><div class="phn-badge bg">Collecté</div></div>
-          <div class="phn-cta-w">+ Déclarer un surplus</div>
-        </div>
-      </div>
-      <div class="phn main reveal">
-        <div class="phn-inner phn-dark">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
-            <div style="width:22px;height:22px;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:6px;display:flex;align-items:center;justify-content:center;"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M6 1.5L2.5 4.5 6 7.5" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-            <div style="font-family:'Playfair Display',serif;font-size:12px;font-weight:800;color:white;">Nouveau surplus</div>
-          </div>
-          <div class="phn-form-lbl">Catégorie</div>
-          <div class="phn-input active">Fruits et légumes disqualifiés</div>
-          <div class="phn-form-lbl">Description</div>
-          <div class="phn-input">Pommes, carottes difformes...</div>
-          <div class="phn-row2">
-            <div><div class="phn-form-lbl">Volume (kg)</div><div class="phn-input active" style="font-family:'Playfair Display',serif;font-size:14px;font-weight:800;color:white;">12</div></div>
-            <div><div class="phn-form-lbl">Limite</div><div class="phn-input active" style="font-family:'Playfair Display',serif;font-size:14px;font-weight:800;color:white;">18:30</div></div>
-          </div>
-          <div class="phn-note">Les associations de votre zone seront alertées instantanément.</div>
-          <div class="phn-cta-g">Envoyer l'alerte →</div>
-        </div>
-      </div>
-      <div class="phn reveal d1">
-        <div class="phn-inner phn-light">
-          <div class="phn-light-nav">
-            <div class="phn-brand-d">revalis</div>
-            <div class="phn-avatar">CJ</div>
-          </div>
-          <div class="phn-alert-box">
-            <div class="phn-alert-t">Don disponible à 380 m</div>
-            <div class="phn-alert-s">Collecte avant 18h30</div>
-          </div>
-          <div class="phn-feed-lbl">Disponible maintenant</div>
-          <div class="phn-card">
-            <div class="phn-card-h">
-              <div><div class="phn-store-n">Monoprix République</div><div class="phn-store-s">Bd du Temple · 380 m</div></div>
-              <div class="phn-cd">18:30</div>
-            </div>
-            <div class="phn-card-b">
-              <div><div class="phn-s-l">Volume</div><div class="phn-s-v">12<span class="phn-s-u"> kg</span></div></div>
-              <div><div class="phn-s-l">Distance</div><div class="phn-s-v">380<span class="phn-s-u"> m</span></div></div>
-              <div><div class="phn-s-l">Colis</div><div class="phn-s-v">3</div></div>
-            </div>
-          </div>
-          <div class="phn-cta-d">Prendre en charge →</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LAW — 3 cards same size -->
-<section id="loi" class="law-section">
+<!-- LAW -->
+<section id="loi" class="law-sec" aria-labelledby="law-title">
   <div class="law-inner">
-    <div class="law-header reveal">
-      <div class="section-tag">Cadre légal français</div>
-      <h2 class="section-title">La loi est de<br><span class="italic" style="color:rgba(255,255,255,0.4);">votre côté.</span></h2>
-      <p class="section-sub">La France dispose d'un des cadres législatifs les plus favorables au don alimentaire en Europe. Revalis s'appuie sur ces lois pour sécuriser et valoriser chaque don.</p>
-    </div>
-    <div class="law-cards-grid">
-      <div class="law-card reveal d1">
-        <div class="law-card-eyebrow">Obligation légale</div>
-        <div class="law-card-num-big">2016</div>
-        <div class="law-card-title">Loi Garot</div>
-        <div class="law-card-desc">Oblige les supermarchés de plus de 400m² à signer une convention de don avec une association habilitée. Revalis simplifie cette obligation et la rend opérationnelle au quotidien.</div>
+    <header class="law-head rv">
+      <h2 class="sec-h2 white center" id="law-title">La loi est de <em>votre côté.</em></h2>
+      <p class="sec-p center" style="color:rgba(255,255,255,0.5);margin-top:14px;">La France dispose d'un des cadres législatifs les plus favorables au don alimentaire en Europe. Revalis s'appuie sur ces textes pour sécuriser et valoriser chaque don.</p>
+    </header>
+    <div class="law-grid" role="list">
+      <article class="law-card" role="listitem">
+        <div class="law-ey">Obligation légale</div>
+        <div class="law-big">2016</div>
+        <h3 class="law-title">Loi Garot</h3>
+        <p class="law-desc">Oblige les supermarchés de plus de 400m² à signer une convention de don avec une association habilitée. Revalis simplifie cette obligation et la rend opérationnelle au quotidien.</p>
         <div class="law-ref">Loi n° 2016-138</div>
-      </div>
-      <div class="law-card reveal d2">
-        <div class="law-card-eyebrow">Avantage fiscal</div>
-        <div class="law-card-num-big">60<em>%</em></div>
-        <div class="law-card-title">Loi Coluche</div>
-        <div class="law-card-desc">60% de réduction d'impôt sur la valeur des dons en nature aux associations agréées. Revalis génère automatiquement les reçus fiscaux pour chaque lot donné.</div>
+      </article>
+      <article class="law-card" role="listitem">
+        <div class="law-ey">Avantage fiscal</div>
+        <div class="law-big">60<em>%</em></div>
+        <h3 class="law-title">Loi Coluche</h3>
+        <p class="law-desc">60% de réduction d'impôt sur la valeur des dons en nature aux associations agréées. Revalis génère automatiquement les reçus fiscaux pour chaque lot donné.</p>
         <div class="law-ref">Art. 238 bis CGI</div>
-      </div>
-      <div class="law-card reveal d3">
-        <div class="law-card-eyebrow">En chiffres</div>
-        <div class="law-card-num-big">6k<em>€</em></div>
-        <div class="law-card-title">Économie annuelle type</div>
-        <div class="law-card-desc">Pour un magasin qui donne 10 000€ de produits par an via Revalis, ce sont 6 000€ d'impôts économisés — directement visibles sur la déclaration fiscale.</div>
+      </article>
+      <article class="law-card" role="listitem">
+        <div class="law-ey">En chiffres</div>
+        <div class="law-big">6k<em>€</em></div>
+        <h3 class="law-title">Économie annuelle type</h3>
+        <p class="law-desc">Pour un magasin donnant 10 000€ de produits par an via Revalis, ce sont 6 000€ d'impôts économisés, directement visibles sur la déclaration fiscale.</p>
         <div class="law-ref">Calcul indicatif</div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section contact-section">
-  <div class="section-inner">
-    <div class="contact-inner">
-      <div class="contact-left reveal">
-        <div class="section-tag">Nous rejoindre</div>
-        <h2 class="section-title">Agissons<br><span class="italic">ensemble.</span></h2>
-        <p class="section-sub">Que vous soyez supermarché ou association — prenons contact. On vous répond sous 24h.</p>
-        <div class="contact-info-cards">
-          <div class="contact-info-card">
-            <div class="cic-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 5a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" stroke="#1a4a2e" stroke-width="1.4"/><path d="M3 7l6 4 6-4" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-            <div class="cic-title">Écrivez-nous</div>
-            <div class="cic-desc">Pour toute question, partenariat ou demande de démo — notre équipe vous répond rapidement.</div>
-            <div class="cic-value">contact@revalis.fr</div>
+<section id="contact" class="sec contact-sec" aria-labelledby="contact-title">
+  <div class="sec-inner">
+    <div class="contact-grid">
+      <div class="contact-left rv">
+        <h2 class="sec-h2" id="contact-title">Agissons <em>ensemble.</em></h2>
+        <p>Que vous soyez supermarché ou association, prenons contact. On vous répond sous 24h.</p>
+        <div class="ccards">
+          <div class="ccard">
+            <div class="cc-icon" aria-hidden="true">
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M2.5 4.5a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2h-8a2 2 0 01-2-2v-8z" stroke="#1a4a2e" stroke-width="1.3"/><path d="M2.5 6.5l6 4 6-4" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+            <div class="cc-title">Écrivez-nous</div>
+            <p class="cc-desc">Pour toute question, partenariat ou demande de présentation.</p>
+            <div class="cc-val">contact@revalis.fr</div>
           </div>
-          <div class="contact-info-card">
-            <div class="cic-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2a5 5 0 100 10A5 5 0 009 2z" stroke="#1a4a2e" stroke-width="1.4"/><path d="M5.5 16c0-2 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5" stroke="#1a4a2e" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-            <div class="cic-title">Vous êtes une enseigne ?</div>
-            <div class="cic-desc">Nous accompagnons les directions RSE et les chefs de rayon pour une intégration sans friction dans les process existants.</div>
-            <div class="cic-value">Demander une démo →</div>
+          <div class="ccard">
+            <div class="cc-icon" aria-hidden="true">
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><rect x="2.5" y="3.5" width="12" height="10" rx="1.5" stroke="#1a4a2e" stroke-width="1.3"/><path d="M5.5 8.5h6M5.5 11h4" stroke="#1a4a2e" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+            <div class="cc-title">Vous êtes une enseigne ?</div>
+            <p class="cc-desc">Nous accompagnons les directions RSE et les chefs de rayon pour une intégration sans friction dans les process existants.</p>
+            <div class="cc-val">Demander une présentation</div>
           </div>
-          <div class="contact-info-card">
-            <div class="cic-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3l1.5 4.5H15l-3.75 2.72 1.43 4.4L9 12.1l-3.68 2.62 1.43-4.4L3 7.5h4.5L9 3z" stroke="#1a4a2e" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
-            <div class="cic-title">Vous êtes une association ?</div>
-            <div class="cic-desc">L'accès à Revalis est entièrement gratuit pour les associations humanitaires. Rejoignez le réseau en quelques minutes.</div>
-            <div class="cic-value">Accès gratuit →</div>
+          <div class="ccard">
+            <div class="cc-icon" aria-hidden="true">
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M8.5 2l1.8 4H15l-3.6 2.6 1.4 4.2L8.5 10.3l-4.3 2.5 1.4-4.2L2 6h4.7L8.5 2z" stroke="#1a4a2e" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="cc-title">Vous êtes une association ?</div>
+            <p class="cc-desc">L'accès à Revalis est entièrement gratuit. Rejoignez le réseau en quelques minutes.</p>
+            <div class="cc-val">Accès gratuit</div>
           </div>
         </div>
       </div>
-      <div class="contact-form reveal d2">
-        <div class="form-title">Envoyer un message</div>
-        <div class="form-sub">Dites-nous qui vous êtes et ce que vous cherchez.</div>
-        <div class="form-tabs">
-          <button class="form-tab active" id="tab-store" onclick="switchTab(this,'store')">Supermarché</button>
-          <button class="form-tab" id="tab-assoc" onclick="switchTab(this,'assoc')">Association</button>
-          <button class="form-tab" id="tab-other" onclick="switchTab(this,'other')">Autre</button>
+
+      <div class="cform rv rv-d2" role="region" aria-labelledby="form-title">
+        <h3 class="cf-h" id="form-title">Envoyer un message</h3>
+        <p class="cf-sub">Dites-nous qui vous êtes et ce que vous cherchez.</p>
+
+        <div class="cf-tabs" role="tablist" aria-label="Type de profil">
+          <button
+            class="cf-tab"
+            id="tab-store"
+            role="tab"
+            aria-selected="true"
+            aria-controls="form-panel"
+            onclick="switchTab(this,'store')"
+          >Supermarché</button>
+          <button
+            class="cf-tab"
+            id="tab-assoc"
+            role="tab"
+            aria-selected="false"
+            aria-controls="form-panel"
+            onclick="switchTab(this,'assoc')"
+          >Association</button>
+          <button
+            class="cf-tab"
+            id="tab-other"
+            role="tab"
+            aria-selected="false"
+            aria-controls="form-panel"
+            onclick="switchTab(this,'other')"
+          >Autre</button>
         </div>
-        <div class="form-row">
-          <div class="form-field"><label class="field-label">Prénom</label><input type="text" class="field-input" placeholder="Marie"></div>
-          <div class="form-field"><label class="field-label">Nom</label><input type="text" class="field-input" placeholder="Dupont"></div>
+
+        <div id="form-panel" role="tabpanel" aria-labelledby="tab-store">
+          <div class="cf-row">
+            <div class="cf-field">
+              <label class="cf-label" for="f-prenom">Prénom</label>
+              <input type="text" class="cf-input" id="f-prenom" name="prenom" autocomplete="given-name" placeholder="Marie" required>
+            </div>
+            <div class="cf-field">
+              <label class="cf-label" for="f-nom">Nom</label>
+              <input type="text" class="cf-input" id="f-nom" name="nom" autocomplete="family-name" placeholder="Dupont" required>
+            </div>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="f-email">Email professionnel</label>
+            <input type="email" class="cf-input" id="f-email" name="email" autocomplete="email" placeholder="marie@monoprix.fr" required>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="f-org" id="org-label">Nom de votre enseigne</label>
+            <input type="text" class="cf-input" id="f-org" name="organisation" autocomplete="organization" placeholder="Monoprix République">
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="f-msg">Message</label>
+            <textarea class="cf-input" id="f-msg" name="message" rows="4" placeholder="Dites-nous en quelques mots votre situation..."></textarea>
+          </div>
         </div>
-        <div class="form-field"><label class="field-label">Email professionnel</label><input type="email" class="field-input" placeholder="marie@monoprix.fr"></div>
-        <div class="form-field" id="org-field"><label class="field-label" id="org-label">Nom de votre enseigne</label><input type="text" class="field-input" id="org-input" placeholder="Monoprix République"></div>
-        <div class="form-field"><label class="field-label">Votre message</label><textarea class="field-input" rows="4" placeholder="Dites-nous en quelques mots votre situation..."></textarea></div>
-        <button class="btn-submit" onclick="handleSubmit(this)">
-          Envoyer ma demande
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+        <button class="cf-submit" type="button" onclick="handleSubmit(this)" aria-label="Envoyer le formulaire de contact">
+          Envoyer
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2.5 7.5h10M8.5 4l4 3.5L8.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
-        <p class="form-note">Vos données restent confidentielles et ne sont jamais revendues.</p>
+        <p class="cf-note">Vos données restent confidentielles et ne sont jamais revendues.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
+</main>
+
+<footer role="contentinfo">
   <div>
-    <div class="footer-logo-txt">revalis</div>
-    <div class="footer-tagline">Connecting surplus to solidarity.<br>Paris, France.</div>
+    <div class="ft-name">revalis</div>
+    <p class="ft-tag">Connecting surplus to solidarity.<br>Paris, France.</p>
   </div>
-  <div>
-    <div class="footer-col-title">Produit</div>
-    <ul class="footer-links">
+  <nav aria-label="Liens produit">
+    <div class="ft-head">Produit</div>
+    <ul class="ft-list" role="list">
       <li><a href="#probleme">Le problème</a></li>
       <li><a href="#comment">Comment ça marche</a></li>
       <li><a href="#loi">Cadre légal</a></li>
     </ul>
-  </div>
-  <div>
-    <div class="footer-col-title">Rejoindre</div>
-    <ul class="footer-links">
+  </nav>
+  <nav aria-label="Liens pour rejoindre">
+    <div class="ft-head">Rejoindre</div>
+    <ul class="ft-list" role="list">
       <li><a href="#contact" onclick="setTab('store')">Supermarché</a></li>
       <li><a href="#contact" onclick="setTab('assoc')">Association</a></li>
     </ul>
-  </div>
-  <div>
-    <div class="footer-col-title">Contact</div>
-    <ul class="footer-links">
+  </nav>
+  <nav aria-label="Liens contact">
+    <div class="ft-head">Contact</div>
+    <ul class="ft-list" role="list">
       <li><a href="mailto:contact@revalis.fr">contact@revalis.fr</a></li>
     </ul>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2025 Revalis — Tous droits réservés</div>
-    <div class="footer-copy">Paris, France</div>
+  </nav>
+  <div class="ft-bot">
+    <p class="ft-copy">© 2025 Revalis. Tous droits réservés.</p>
+    <p class="ft-copy">Paris, France</p>
   </div>
 </footer>
 
 <script>
-// Nav scroll
+'use strict';
+
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
 
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      entry.target.querySelectorAll('.prob-card, .law-card').forEach(child => {
+        child.classList.add('show');
+      });
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
 
-// Form tabs
+document.querySelectorAll('.rv, .prob-grid, .law-grid').forEach(el => {
+  revealObserver.observe(el);
+});
+
+document.querySelectorAll('.rv, .prob-card, .law-card').forEach(el => {
+  el.addEventListener('transitionend', () => {
+    el.style.willChange = 'auto';
+  }, { once: true });
+});
+
 function switchTab(btn, type) {
-  document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('.cf-tab').forEach(t => {
+    t.setAttribute('aria-selected', 'false');
+    t.classList.remove('on');
+  });
+  btn.setAttribute('aria-selected', 'true');
+  btn.classList.add('on');
+  document.getElementById('form-panel').setAttribute('aria-labelledby', btn.id);
+
   const lbl = document.getElementById('org-label');
-  const inp = document.getElementById('org-input');
-  if (type === 'store') { lbl.textContent = 'Nom de votre enseigne'; inp.placeholder = 'Monoprix République'; }
-  else if (type === 'assoc') { lbl.textContent = 'Nom de votre association'; inp.placeholder = 'Les Restos du Cœur — 11e'; }
-  else { lbl.textContent = 'Votre organisation'; inp.placeholder = 'Nom de votre structure'; }
+  const inp = document.getElementById('f-org');
+  const map = {
+    store: ['Nom de votre enseigne',   'Monoprix République'],
+    assoc: ["Nom de votre association", 'Les Restos du Coeur, 11e'],
+    other: ['Votre organisation',       'Nom de votre structure'],
+  };
+  lbl.textContent = map[type][0];
+  inp.placeholder = map[type][1];
 }
 
-// Set tab from external link (hero buttons, footer)
+document.getElementById('tab-store').classList.add('on');
+
 function setTab(type) {
-  const map = { store: 'tab-store', assoc: 'tab-assoc', other: 'tab-other' };
-  const btn = document.getElementById(map[type]);
+  const ids = { store: 'tab-store', assoc: 'tab-assoc', other: 'tab-other' };
+  const btn = document.getElementById(ids[type]);
   if (btn) switchTab(btn, type);
 }
 
-// Submit feedback
 function handleSubmit(btn) {
-  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Message envoyé !';
-  btn.style.background = '#2d7a4f';
+  const required = ['f-prenom', 'f-nom', 'f-email'];
+  let valid = true;
+  required.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.value.trim()) {
+      el.style.borderColor = 'var(--red)';
+      el.setAttribute('aria-invalid', 'true');
+      valid = false;
+    } else if (el) {
+      el.style.borderColor = '';
+      el.removeAttribute('aria-invalid');
+    }
+  });
+  if (!valid) {
+    const first = document.getElementById('f-prenom');
+    if (first) first.focus();
+    return;
+  }
+  btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M2.5 7.5l4 4 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Message envoyé !';
+  btn.style.background = 'var(--forest3)';
   btn.disabled = true;
+  btn.setAttribute('aria-label', 'Message envoyé avec succès');
+
+  const sr = document.createElement('div');
+  sr.setAttribute('role', 'status');
+  sr.setAttribute('aria-live', 'polite');
+  sr.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+  sr.textContent = 'Votre message a été envoyé. Nous vous répondrons sous 24h.';
+  document.body.appendChild(sr);
+  setTimeout(() => sr.remove(), 3000);
 }
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('keydown', e => {
+    if (e.key === 'Escape') link.blur();
+  });
+});
 </script>
 </body>
 </html>
